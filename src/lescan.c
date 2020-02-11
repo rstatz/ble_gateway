@@ -196,9 +196,9 @@ void connect(int s) {
 
     //End connect and send
 
-
-    free( ii );
-    close( sock );
+//
+//    free( ii );
+//    close( sock );
 
     return 0;
 }
@@ -217,7 +217,8 @@ int main(int argc, char **argv) {
 
     printf("Scanning...\n");
 
-    ble_scan(device);
+    connect(device)
+    //ble_scan(device);
 
     ble_disable_scanning(device, &status);
 
