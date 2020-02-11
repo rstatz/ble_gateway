@@ -87,13 +87,9 @@ int main(int argc, char **argv)
                 flag =1;
             }
         }
-
     }
 
-
 /// End Search 
-
-
 
 ///Connect and send
 
