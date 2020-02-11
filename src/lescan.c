@@ -169,7 +169,7 @@ void ble_disable_scanning(int device, int* status) {
     }    
 }
 
-void connect(int s) {
+void connect_lap(int s) {
     char dest[18] = "B0:10:41:3F:6E:80";//My destination address Laptop
 
     int status = connect(s, (struct sockaddr *)&addrress, sizeof(addrress));
@@ -217,7 +217,7 @@ int main(int argc, char **argv) {
 
     printf("Scanning...\n");
 
-    connect(device)
+    connect_lap(device);
     //ble_scan(device);
 
     ble_disable_scanning(device, &status);
