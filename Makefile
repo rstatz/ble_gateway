@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-lbluetooth
+CFLAGS=-lbluetooth -Wall
 SRCDIR=./src
 
 lescan: $(SRCDIR)/lescan.o
