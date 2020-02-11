@@ -178,6 +178,8 @@ void connect_lap(int s) {
     addrress.rc_channel = (uint8_t) 1;//must use sdp to work in real devices
     //may this channel not ready
 
+    str2ba( dest, &addrress.rc_bdaddr );
+
 
     int status = connect(s, (struct sockaddr *)&addrress, sizeof(addrress));
     //successful, connect() returns 0.
