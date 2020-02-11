@@ -170,7 +170,14 @@ void ble_disable_scanning(int device, int* status) {
 }
 
 void connect_lap(int s) {
+    struct sockaddr_rc addrress = { 0 };
+
     char dest[18] = "B0:10:41:3F:6E:80";//My destination address Laptop
+
+    addrress.rc_family = AF_BLUETOOTH;
+    addrress.rc_channel = (uint8_t) 1;//must use sdp to work in real devices
+    //may this channel not ready
+
 
     int status = connect(s, (struct sockaddr *)&addrress, sizeof(addrress));
     //successful, connect() returns 0.
