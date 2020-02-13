@@ -169,48 +169,48 @@ void ble_disable_scanning(int device, int* status) {
     }    
 }
 
-void connect_lap(int s) {
-    struct sockaddr_rc addrress = { 0 };
-
-    char dest[18] = "B0:10:41:3F:6E:80";//My destination address Laptop
-
-    addrress.rc_family = AF_BLUETOOTH;
-    addrress.rc_channel = (uint8_t) 1;//must use sdp to work in real devices
-    //may this channel not ready
-
-    str2ba( dest, &addrress.rc_bdaddr );
-
-
-    int status = connect(s, (struct sockaddr *)&addrress, sizeof(addrress));
-    //successful, connect() returns 0.
-
-    printf("connection status: %d\n\n",status);//0 show OK
-
-    // send a message to server
-    if( status == 0 ) {
-        status = write(s, "hello!", 6);
-        if (status == 6){
-            printf("Send data to server done\n");
-        }
-    }
-    else
-    if( status < 0 ){
-        perror("send message to server Failed\n");
-    }
-
-    printf("Closing socket\n");
-
-    //close the socket
-    close(s);
-
-    //End connect and send
-
+//void connect_lap(int s) {
+//    struct sockaddr_rc addrress = { 0 };
 //
-//    free( ii );
-//    close( sock );
-
-    return 0;
-}
+//    char dest[18] = "B0:10:41:3F:6E:80";//My destination address Laptop
+//
+//    addrress.rc_family = AF_BLUETOOTH;
+//    addrress.rc_channel = (uint8_t) 1;//must use sdp to work in real devices
+//    //may this channel not ready
+//
+//    str2ba( dest, &addrress.rc_bdaddr );
+//
+//
+//    int status = connect(s, (struct sockaddr *)&addrress, sizeof(addrress));
+//    //successful, connect() returns 0.
+//
+//    printf("connection status: %d\n\n",status);//0 show OK
+//
+//    // send a message to server
+//    if( status == 0 ) {
+//        status = write(s, "hello!", 6);
+//        if (status == 6){
+//            printf("Send data to server done\n");
+//        }
+//    }
+//    else
+//    if( status < 0 ){
+//        perror("send message to server Failed\n");
+//    }
+//
+//    printf("Closing socket\n");
+//
+//    //close the socket
+//    close(s);
+//
+//    //End connect and send
+//
+////
+////    free( ii );
+////    close( sock );
+//
+//    return 0;
+//}
 
 int main(int argc, char **argv) {
     int device, status;
