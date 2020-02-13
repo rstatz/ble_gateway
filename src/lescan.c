@@ -212,6 +212,41 @@ void ble_disable_scanning(int device, int* status) {
 //    return 0;
 //}
 
+void connect_scan() {
+    uint8_t buf[HCI_MAX_EVENT_SIZE];
+    evt_le_meta_event* meta_event;
+    le_advertising_info* info;
+    int len;
+
+    char addr[19] = { 0 };
+    char name[248] = { 0 };
+
+    uint8_t reports_count;
+    void* offset;
+
+    char addr[18];
+
+    while ( 1 ) {
+        len = read(device, buf, sizeof(buf));
+
+        if ( len >= HCI_EVENT_HDR_SIZE ) {
+            meta_event = (evt_le_meta_event*)(buf+HCI_EVENT_HDR_SIZE+1);
+
+            if ( meta_event->subevent == EVT_LE_ADVERTISING_REPORT ) {
+                reports_count = meta_event->data[0];
+                offset = meta_event->data + 1;
+
+                while ( reports_count-- ) {
+                    info = (le_advertising_info *)offset;
+                    ba2str(&(info->bdaddr), addr);
+                    printf("%s - RSSI %d\n", addr, (char)info->data[info->length]);
+                    offset = info->data + info->length + 2;
+                }
+            }
+        }
+    }
+}
+
 int main(int argc, char **argv) {
     int device, status;
     
@@ -226,7 +261,7 @@ int main(int argc, char **argv) {
 
     printf("Scanning...\n");
 
-    connect_lap(device);
+    //connect_lap(device);
     //ble_scan(device);
 
     ble_disable_scanning(device, &status);
