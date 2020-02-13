@@ -213,7 +213,7 @@ int main(int argc, char **argv) {
 ////    ble_set_events_report_mask(device, &status);
 ////    ble_enable_scanning(device, &status);
 
-    ble_set_scan_params(device, status)
+    ble_set_scan_params(device, &status);
     hci_set_socket_options(device);
 
     ble_scan(device);
