@@ -11,7 +11,7 @@
 #define SCAN_PARAM_WINDOW   htobs(0x0010)
 #define SCAN_PARAM_BDADDR   0x00
 #define SCAN_PARAM_FILTER   0x00
-#define LE_RANDOM_ADDRESS=0x01
+#define LE_RANDOM_ADDRESS   0x01
 
 #define CONN_PARAM_MIN_INT  htobs()
 
@@ -60,9 +60,9 @@ void ble_set_connect_params (int device, int* status) {
     connect_params.min_interval = 0x000F;
     connect_params.max_interval = 0x000F;
     connect_params.latency = 0x0000;
-    connect_params.supervision_timeout = =0x0C80;
-    connect_params. min_ce_length = =0x0001;
-    connect_params.max_ce_length=0x0001;
+    connect_params.supervision_timeout = 0x0C80;
+    connect_params.min_ce_length = 0x0001;
+    connect_params.max_ce_length = 0x0001;
 
     connect_param_req = ble_hci_request(OCF_LE_CREATE_CONN,
                                       LE_CREATE_CONN_CP_SIZE,
