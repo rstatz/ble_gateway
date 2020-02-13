@@ -11,6 +11,9 @@
 #define SCAN_PARAM_WINDOW   htobs(0x0010)
 #define SCAN_PARAM_BDADDR   0x00
 #define SCAN_PARAM_FILTER   0x00
+#define LE_RANDOM_ADDRESS=0x01
+
+#define CONN_PARAM_MIN_INT  htobs()
 
 #define FLAG_SCAN_ENABLE 0x01
 #define FLAG_SCAN_DISABLE 0x00
@@ -39,6 +42,38 @@ int ble_open_device() {
     }
 
     return device;
+}
+
+void ble_set_connect_params (int device, int* status) {
+    le_create_connection_cp connect_params = {0};
+    struct hci_request connect_param_req;
+    char * addr = "";
+    bdaddr_t ba;
+    // params
+    str2ba(addr, &ba);
+    connect_params.interval = 0x0004;
+    connect_params.window = 0x004;
+    connect_params.initiator_filter = 0x0;
+    connect_params.peer_bdaddr_type = LE_RANDOM_ADDRESS;
+    connect_params.peer_bdaddr = ba;
+    connect_params.own_bdaddr_type = LE_RANDOM_ADDRESS;
+    connect_params.min_interval = 0x000F;
+    connect_params.max_interval = 0x000F;
+    connect_params.latency = 0x0000;
+    connect_params.supervision_timeout = =0x0C80;
+    connect_params. min_ce_length = =0x0001;
+    connect_params.max_ce_length=0x0001;
+
+    connect_param_req = ble_hci_request(OCF_LE_CREATE_CONN,
+                                      LE_CREATE_CONN_CP_SIZE,
+                                      status,
+                                      &connect_params);
+
+    if (hci_send_req(device, &connect_param_req, 1000) < 0) {
+        hci_close_dev(device);
+        perror("Failed to set connect parameters");
+        exit(EXIT_FAILURE);
+    }
 }
 
 // Sets BLE scan parameters
@@ -174,9 +209,11 @@ int main(int argc, char **argv) {
     
     device = ble_open_device();
 
-    ble_set_scan_params(device, &status);
-    ble_set_events_report_mask(device, &status);
-    ble_enable_scanning(device, &status);
+//    ble_set_scan_params(device, &status);
+////    ble_set_events_report_mask(device, &status);
+////    ble_enable_scanning(device, &status);
+
+    ble_set_scan_params(device, status)
     hci_set_socket_options(device);
 
     ble_scan(device);
