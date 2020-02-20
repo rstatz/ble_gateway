@@ -1,54 +1,23 @@
 #include "mysqldb.h"
-#include <mysql.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/time.h>
-#include <unistd.h>
-#include <signal.h>
-#include <errno.h>
-#include <string.h>
+#include "timer_setup.h"
 
 /* TBD might need globals for data buffer and bluetooth tag list */
+timer_t post_timer;
+timer_t poll_timer;
 
-void post_handler(int sig) {
-	/* TBD post data */
-	printf("post caught signal %d\n", sig);
-}
-void poll_handler(int sig) {
-	printf("poll caught signal %d\n", sig);
-	/* TBD bluetooth poll stuff */	
-}
-
-int init_timer(int seconds, void (*handler)(int)) {
-	struct itimerval *it_val = (struct itimerval*)malloc(sizeof(struct itimerval));
-	struct sigaction *sa = (struct sigaction*)malloc(sizeof(struct sigaction));
-	
-	sa->sa_handler = handler;
-	sigemptyset(&sa->sa_mask);
-	sa->sa_flags = 0;
-
-	if(sigaction(SIGALRM, sa, NULL) == -1) {
-		perror("sigaction");
-		exit(1);
-	}
-
-	it_val->it_value.tv_sec = seconds;
-	it_val->it_value.tv_usec = (seconds * 1000000) % 1000000;
-	it_val->it_interval = it_val->it_value;
-
-	if(setitimer(ITIMER_REAL, it_val, NULL) == -1) {
-		perror("setitimer");
-		exit(1);
-	}
-	return 0;
+void timer_handler(int sig, siginfo_t *si, void *uc) {
+	timer_t *tidp;
+	tidp = si->si_value.sival_ptr;
+	if(*tidp == poll_timer)
+		printf("poll tags\n");
+	else if(*tidp == post_timer)
+		printf("post data\n");
 }
 
 int main(int argc, char *argv[]) {
 	MYSQL *conn;
 	MYSQL_RES *res;
 	MYSQL_ROW row;
-	void (*post)(int) = post_handler;
-	void (*poll)(int) = poll_handler;
 	int poll_rate = 200;
 	int post_rate = 300;
 	char realtime = 'F';
@@ -56,8 +25,6 @@ int main(int argc, char *argv[]) {
 	 * char * data_buffer[];
 	 */
 
-	//test_query();
-	printf("here\n");
 	/* Connect to database */
 	if ((conn = connect_db()) == NULL)
 		exit(1);
@@ -69,7 +36,7 @@ int main(int argc, char *argv[]) {
        		fprintf(stderr, "mysql: %s\n", mysql_error(conn));
 		exit(1);
        	}
-	printf("wtf\n");	
+		
        	res = mysql_use_result(conn);
 	/* TBD format tags for use */
        	while ((row = mysql_fetch_row(res)) != NULL)
@@ -93,11 +60,7 @@ int main(int argc, char *argv[]) {
 		printf("poll rate: %d \n", poll_rate);
 	}
 	
-	/* TBD
-	 * refresh_rate = row[0]; 
-	 * init_timer(refresh_rate,poll);
-	 * */
-	init_timer(poll_rate, poll);
+	make_timer(&poll_timer, poll_rate, timer_handler);
 
        	/* check if realtime configured */
 	if (mysql_query(conn, "SELECT realtime FROM config;")) {
@@ -129,7 +92,7 @@ int main(int argc, char *argv[]) {
 			post_rate = atoi(row[0]); //refresh every 5 mins
 			printf("post rate: %d \n", post_rate);
 		}	
-		init_timer(post_rate, post);
+		make_timer(&post_timer, post_rate, timer_handler);
 	}
 
        	/* close connection */
