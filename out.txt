@@ -1,170 +1,116 @@
-make: Warning: File 'btgatt-server.c' has modification time 1168 s in the future
-In file included from btgatt-server.c:52:0:
-src/shared/gatt-db.h:35:13: error: unknown type name 'bt_uuid_t'
-       const bt_uuid_t *uuid,
-             ^~~~~~~~~
-src/shared/gatt-db.h:48:14: error: unknown type name 'bt_uuid_t'
-        const bt_uuid_t *uuid,
-              ^~~~~~~~~
-src/shared/gatt-db.h:65:12: error: unknown type name 'bt_uuid_t'
-      const bt_uuid_t *uuid,
-            ^~~~~~~~~
-src/shared/gatt-db.h:74:12: error: unknown type name 'bt_uuid_t'
-      const bt_uuid_t *uuid,
-            ^~~~~~~~~
-src/shared/gatt-db.h:84:12: error: unknown type name 'bt_uuid_t'
-      const bt_uuid_t *uuid,
-            ^~~~~~~~~
-src/shared/gatt-db.h:94:12: error: unknown type name 'bt_uuid_t'
-      const bt_uuid_t *uuid,
-            ^~~~~~~~~
-src/shared/gatt-db.h:102:12: error: unknown type name 'bt_uuid_t'
-      const bt_uuid_t *uuid,
-            ^~~~~~~~~
-src/shared/gatt-db.h:110:12: error: unknown type name 'bt_uuid_t'
-      const bt_uuid_t *uuid,
-            ^~~~~~~~~
-src/shared/gatt-db.h:140:14: error: unknown type name 'bt_uuid_t'
-        const bt_uuid_t type,
-              ^~~~~~~~~
-src/shared/gatt-db.h:145:13: error: unknown type name 'bt_uuid_t'
-       const bt_uuid_t *type,
-             ^~~~~~~~~
-src/shared/gatt-db.h:152:13: error: unknown type name 'bt_uuid_t'
-       const bt_uuid_t *type,
-             ^~~~~~~~~
-src/shared/gatt-db.h:160:14: error: unknown type name 'bt_uuid_t'
-        const bt_uuid_t type,
-              ^~~~~~~~~
-src/shared/gatt-db.h:168:56: error: unknown type name 'bt_uuid_t'
- void gatt_db_foreach_service(struct gatt_db *db, const bt_uuid_t *uuid,
-                                                        ^~~~~~~~~
-src/shared/gatt-db.h:171:57: error: unknown type name 'bt_uuid_t'
- void gatt_db_foreach_in_range(struct gatt_db *db, const bt_uuid_t *uuid,
-                                                         ^~~~~~~~~
-src/shared/gatt-db.h:178:13: error: unknown type name 'bt_uuid_t'
-       const bt_uuid_t *uuid,
-             ^~~~~~~~~
-src/shared/gatt-db.h:185:13: error: unknown type name 'bt_uuid_t'
-       const bt_uuid_t *uuid,
-             ^~~~~~~~~
-src/shared/gatt-db.h:220:14: error: unknown type name 'bt_uuid_t'
-        const bt_uuid_t *uuid);
-              ^~~~~~~~~
-src/shared/gatt-db.h:222:7: error: unknown type name 'bt_uuid_t'
- const bt_uuid_t *gatt_db_attribute_get_type(
-       ^~~~~~~~~
-src/shared/gatt-db.h:228:8: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
-        bt_uuid_t *uuid);
-        ^~~~~~~~~
-        __uid_t
-src/shared/gatt-db.h:239:8: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
-        bt_uuid_t *uuid);
-        ^~~~~~~~~
-        __uid_t
-src/shared/gatt-db.h:246:8: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
-        bt_uuid_t *uuid);
-        ^~~~~~~~~
-        __uid_t
-btgatt-server.c: In function 'populate_gap_service':
-btgatt-server.c:416:2: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
-  bt_uuid_t uuid;
-  ^~~~~~~~~
-  __uid_t
-btgatt-server.c:421:2: warning: implicit declaration of function 'bt_uuid16_create'; did you mean 'bt_uuid16_to_str'? [-Wimplicit-function-declaration]
-  bt_uuid16_create(&uuid, UUID_GAP);
-  ^~~~~~~~~~~~~~~~
-  bt_uuid16_to_str
-btgatt-server.c:428:26: error: 'GATT_CHARAC_DEVICE_NAME' undeclared (first use in this function)
-  bt_uuid16_create(&uuid, GATT_CHARAC_DEVICE_NAME);
-                          ^~~~~~~~~~~~~~~~~~~~~~~
-btgatt-server.c:428:26: note: each undeclared identifier is reported only once for each function it appears in
-btgatt-server.c:437:26: error: 'GATT_CHARAC_EXT_PROPER_UUID' undeclared (first use in this function); did you mean 'BT_GATT_CHRC_EXT_PROP_AUTH'?
-  bt_uuid16_create(&uuid, GATT_CHARAC_EXT_PROPER_UUID);
-                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-                          BT_GATT_CHRC_EXT_PROP_AUTH
-btgatt-server.c:446:26: error: 'GATT_CHARAC_APPEARANCE' undeclared (first use in this function); did you mean 'GATT_CHARAC_DEVICE_NAME'?
-  bt_uuid16_create(&uuid, GATT_CHARAC_APPEARANCE);
-                          ^~~~~~~~~~~~~~~~~~~~~~
-                          GATT_CHARAC_DEVICE_NAME
-btgatt-server.c: In function 'populate_gatt_service':
-btgatt-server.c:468:2: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
-  bt_uuid_t uuid;
-  ^~~~~~~~~
-  __uid_t
-btgatt-server.c:475:26: error: 'GATT_CHARAC_SERVICE_CHANGED' undeclared (first use in this function)
-  bt_uuid16_create(&uuid, GATT_CHARAC_SERVICE_CHANGED);
-                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-btgatt-server.c:483:26: error: 'GATT_CLIENT_CHARAC_CFG_UUID' undeclared (first use in this function)
-  bt_uuid16_create(&uuid, GATT_CLIENT_CHARAC_CFG_UUID);
-                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-btgatt-server.c: In function 'populate_hr_service':
-btgatt-server.c:494:2: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
-  bt_uuid_t uuid;
-  ^~~~~~~~~
-  __uid_t
-btgatt-server.c:511:26: error: 'GATT_CLIENT_CHARAC_CFG_UUID' undeclared (first use in this function)
-  bt_uuid16_create(&uuid, GATT_CLIENT_CHARAC_CFG_UUID);
-                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-btgatt-server.c: In function 'l2cap_le_att_listen_and_accept':
-btgatt-server.c:664:21: error: storage size of 'srcaddr' isn't known
-  struct sockaddr_l2 srcaddr, addr;
-                     ^~~~~~~
-btgatt-server.c:664:30: error: storage size of 'addr' isn't known
-  struct sockaddr_l2 srcaddr, addr;
-                              ^~~~
-btgatt-server.c:664:30: warning: unused variable 'addr' [-Wunused-variable]
-btgatt-server.c:664:21: warning: unused variable 'srcaddr' [-Wunused-variable]
-  struct sockaddr_l2 srcaddr, addr;
-                     ^~~~~~~
-btgatt-server.c: At top level:
-btgatt-server.c:900:30: error: unknown type name 'bt_uuid_t'
- static void print_uuid(const bt_uuid_t *uuid)
-                              ^~~~~~~~~
-btgatt-server.c: In function 'print_uuid':
-btgatt-server.c:902:16: error: 'MAX_LEN_UUID_STR' undeclared (first use in this function)
-  char uuid_str[MAX_LEN_UUID_STR];
-                ^~~~~~~~~~~~~~~~
-btgatt-server.c:903:2: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
-  bt_uuid_t uuid128;
-  ^~~~~~~~~
-  __uid_t
-btgatt-server.c:905:2: warning: implicit declaration of function 'bt_uuid_to_uuid128'; did you mean 'bt_uuidstr_to_str'? [-Wimplicit-function-declaration]
-  bt_uuid_to_uuid128(uuid, &uuid128);
-  ^~~~~~~~~~~~~~~~~~
-  bt_uuidstr_to_str
-btgatt-server.c:906:2: warning: implicit declaration of function 'bt_uuid_to_string'; did you mean 'bt_uuid32_to_str'? [-Wimplicit-function-declaration]
-  bt_uuid_to_string(&uuid128, uuid_str, sizeof(uuid_str));
-  ^~~~~~~~~~~~~~~~~
-  bt_uuid32_to_str
-btgatt-server.c:902:7: warning: unused variable 'uuid_str' [-Wunused-variable]
-  char uuid_str[MAX_LEN_UUID_STR];
-       ^~~~~~~~
-btgatt-server.c: In function 'print_incl':
-btgatt-server.c:916:2: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
-  bt_uuid_t uuid;
-  ^~~~~~~~~
-  __uid_t
-btgatt-server.c:925:2: warning: implicit declaration of function 'gatt_db_attribute_get_service_uuid'; did you mean 'gatt_db_attribute_get_service_handles'? [-Wimplicit-function-declaration]
-  gatt_db_attribute_get_service_uuid(service, &uuid);
-  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  gatt_db_attribute_get_service_handles
-btgatt-server.c: In function 'print_chrc':
-btgatt-server.c:946:2: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
-  bt_uuid_t uuid;
-  ^~~~~~~~~
-  __uid_t
-btgatt-server.c:948:7: warning: implicit declaration of function 'gatt_db_attribute_get_char_data'; did you mean 'gatt_db_attribute_get_user_data'? [-Wimplicit-function-declaration]
-  if (!gatt_db_attribute_get_char_data(attr, &handle,
-       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-       gatt_db_attribute_get_user_data
-btgatt-server.c: In function 'print_service':
-btgatt-server.c:969:2: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
-  bt_uuid_t uuid;
-  ^~~~~~~~~
-  __uid_t
-btgatt-server.c:971:7: warning: implicit declaration of function 'gatt_db_attribute_get_service_data'; did you mean 'gatt_db_attribute_get_user_data'? [-Wimplicit-function-declaration]
-  if (!gatt_db_attribute_get_service_data(attr, &start, &end, &primary,
-       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-       gatt_db_attribute_get_user_data
-make: *** [btgatt-server.o] Error 1
+btgatt-server.o: In function `gap_device_name_read_cb':
+btgatt-server.c:(.text+0x164): undefined reference to `gatt_db_attribute_read_result'
+btgatt-server.o: In function `gap_device_name_write_cb':
+btgatt-server.c:(.text+0x22c): undefined reference to `gatt_db_attribute_write_result'
+btgatt-server.o: In function `gap_device_name_ext_prop_read_cb':
+btgatt-server.c:(.text+0x28c): undefined reference to `gatt_db_attribute_read_result'
+btgatt-server.o: In function `gatt_service_changed_cb':
+btgatt-server.c:(.text+0x2e4): undefined reference to `gatt_db_attribute_read_result'
+btgatt-server.o: In function `gatt_svc_chngd_ccc_read_cb':
+btgatt-server.c:(.text+0x358): undefined reference to `gatt_db_attribute_read_result'
+btgatt-server.o: In function `gatt_svc_chngd_ccc_write_cb':
+btgatt-server.c:(.text+0x412): undefined reference to `gatt_db_attribute_write_result'
+btgatt-server.o: In function `hr_msrmt_ccc_read_cb':
+btgatt-server.c:(.text+0x47e): undefined reference to `gatt_db_attribute_read_result'
+btgatt-server.o: In function `hr_msrmt_cb':
+btgatt-server.c:(.text+0x54a): undefined reference to `bt_gatt_server_send_notification'
+btgatt-server.o: In function `update_hr_msrmt_simulation':
+btgatt-server.c:(.text+0x5c2): undefined reference to `timeout_remove'
+btgatt-server.c:(.text+0x5d4): undefined reference to `timeout_add'
+btgatt-server.o: In function `hr_msrmt_ccc_write_cb':
+btgatt-server.c:(.text+0x692): undefined reference to `gatt_db_attribute_write_result'
+btgatt-server.o: In function `hr_control_point_write_cb':
+btgatt-server.c:(.text+0x70e): undefined reference to `gatt_db_attribute_write_result'
+btgatt-server.o: In function `populate_gap_service':
+btgatt-server.c:(.text+0x782): undefined reference to `bt_uuid16_create'
+btgatt-server.c:(.text+0x792): undefined reference to `gatt_db_add_service'
+btgatt-server.c:(.text+0x7a2): undefined reference to `bt_uuid16_create'
+btgatt-server.c:(.text+0x7c0): undefined reference to `gatt_db_service_add_characteristic'
+btgatt-server.c:(.text+0x7ce): undefined reference to `bt_uuid16_create'
+btgatt-server.c:(.text+0x7e6): undefined reference to `gatt_db_service_add_descriptor'
+btgatt-server.c:(.text+0x7f4): undefined reference to `bt_uuid16_create'
+btgatt-server.c:(.text+0x80e): undefined reference to `gatt_db_service_add_characteristic'
+btgatt-server.c:(.text+0x83c): undefined reference to `gatt_db_attribute_write'
+btgatt-server.c:(.text+0x844): undefined reference to `gatt_db_service_set_active'
+btgatt-server.o: In function `populate_gatt_service':
+btgatt-server.c:(.text+0x896): undefined reference to `bt_uuid16_create'
+btgatt-server.c:(.text+0x8a6): undefined reference to `gatt_db_add_service'
+btgatt-server.c:(.text+0x8b6): undefined reference to `bt_uuid16_create'
+btgatt-server.c:(.text+0x8d2): undefined reference to `gatt_db_service_add_characteristic'
+btgatt-server.c:(.text+0x8da): undefined reference to `gatt_db_attribute_get_handle'
+btgatt-server.c:(.text+0x8f0): undefined reference to `bt_uuid16_create'
+btgatt-server.c:(.text+0x90a): undefined reference to `gatt_db_service_add_descriptor'
+btgatt-server.c:(.text+0x912): undefined reference to `gatt_db_service_set_active'
+btgatt-server.o: In function `populate_hr_service':
+btgatt-server.c:(.text+0x966): undefined reference to `bt_uuid16_create'
+btgatt-server.c:(.text+0x976): undefined reference to `gatt_db_add_service'
+btgatt-server.c:(.text+0x97e): undefined reference to `gatt_db_attribute_get_handle'
+btgatt-server.c:(.text+0x994): undefined reference to `bt_uuid16_create'
+btgatt-server.c:(.text+0x9ae): undefined reference to `gatt_db_service_add_characteristic'
+btgatt-server.c:(.text+0x9b6): undefined reference to `gatt_db_attribute_get_handle'
+btgatt-server.c:(.text+0x9cc): undefined reference to `bt_uuid16_create'
+btgatt-server.c:(.text+0x9e6): undefined reference to `gatt_db_service_add_descriptor'
+btgatt-server.c:(.text+0x9f4): undefined reference to `bt_uuid16_create'
+btgatt-server.c:(.text+0xa0e): undefined reference to `gatt_db_service_add_characteristic'
+btgatt-server.c:(.text+0xa30): undefined reference to `gatt_db_attribute_write'
+btgatt-server.c:(.text+0xa3e): undefined reference to `bt_uuid16_create'
+btgatt-server.c:(.text+0xa5a): undefined reference to `gatt_db_service_add_characteristic'
+btgatt-server.c:(.text+0xa6c): undefined reference to `gatt_db_service_set_active'
+btgatt-server.o: In function `server_create':
+btgatt-server.c:(.text+0xaec): undefined reference to `btd_malloc'
+btgatt-server.c:(.text+0xb28): undefined reference to `bt_att_new'
+btgatt-server.c:(.text+0xb56): undefined reference to `bt_att_set_close_on_unref'
+btgatt-server.c:(.text+0xb86): undefined reference to `bt_att_register_disconnect'
+btgatt-server.c:(.text+0xbfc): undefined reference to `gatt_db_new'
+btgatt-server.c:(.text+0xc2e): undefined reference to `bt_gatt_server_new'
+btgatt-server.c:(.text+0xc74): undefined reference to `bt_att_set_debug'
+btgatt-server.c:(.text+0xc86): undefined reference to `bt_gatt_server_set_debug'
+btgatt-server.c:(.text+0xca8): undefined reference to `gatt_db_unref'
+btgatt-server.c:(.text+0xcbc): undefined reference to `bt_att_unref'
+btgatt-server.o: In function `server_destroy':
+btgatt-server.c:(.text+0xd1e): undefined reference to `timeout_remove'
+btgatt-server.c:(.text+0xd28): undefined reference to `bt_gatt_server_unref'
+btgatt-server.c:(.text+0xd32): undefined reference to `gatt_db_unref'
+btgatt-server.o: In function `cmd_notify':
+btgatt-server.c:(.text+0x12aa): undefined reference to `bt_gatt_server_send_indication'
+btgatt-server.c:(.text+0x12e2): undefined reference to `bt_gatt_server_send_notification'
+btgatt-server.o: In function `cmd_heart_rate':
+btgatt-server.c:(.text+0x140e): undefined reference to `gatt_db_get_attribute'
+btgatt-server.c:(.text+0x141e): undefined reference to `gatt_db_service_set_active'
+btgatt-server.c:(.text+0x1486): undefined reference to `bt_gatt_server_send_indication'
+btgatt-server.o: In function `print_uuid':
+btgatt-server.c:(.text+0x14e0): undefined reference to `bt_uuid_to_uuid128'
+btgatt-server.c:(.text+0x14f0): undefined reference to `bt_uuid_to_string'
+btgatt-server.o: In function `print_incl':
+btgatt-server.c:(.text+0x1548): undefined reference to `gatt_db_attribute_get_incl_data'
+btgatt-server.c:(.text+0x1562): undefined reference to `gatt_db_get_attribute'
+btgatt-server.c:(.text+0x1576): undefined reference to `gatt_db_attribute_get_service_uuid'
+btgatt-server.o: In function `print_desc':
+btgatt-server.c:(.text+0x15cc): undefined reference to `gatt_db_attribute_get_handle'
+btgatt-server.c:(.text+0x15e0): undefined reference to `gatt_db_attribute_get_type'
+btgatt-server.o: In function `print_chrc':
+btgatt-server.c:(.text+0x162a): undefined reference to `gatt_db_attribute_get_char_data'
+btgatt-server.c:(.text+0x1668): undefined reference to `gatt_db_service_foreach_desc'
+btgatt-server.o: In function `print_service':
+btgatt-server.c:(.text+0x16c8): undefined reference to `gatt_db_attribute_get_service_data'
+btgatt-server.c:(.text+0x170c): undefined reference to `gatt_db_service_foreach_incl'
+btgatt-server.c:(.text+0x171a): undefined reference to `gatt_db_service_foreach_char'
+btgatt-server.o: In function `cmd_services':
+btgatt-server.c:(.text+0x1772): undefined reference to `gatt_db_foreach_service'
+btgatt-server.o: In function `cmd_set_sign_key':
+btgatt-server.c:(.text+0x18e8): undefined reference to `bt_att_set_remote_key'
+mainloop-notify.o: In function `mainloop_notify_init':
+mainloop-notify.c:(.text+0x11a): undefined reference to `timeout_add'
+mainloop-notify.o: In function `mainloop_notify_exit':
+mainloop-notify.c:(.text+0x1aa): undefined reference to `timeout_remove'
+mainloop-notify.o: In function `signal_read':
+mainloop-notify.c:(.text+0x23a): undefined reference to `io_get_fd'
+mainloop-notify.o: In function `setup_signalfd':
+mainloop-notify.c:(.text+0x328): undefined reference to `io_new'
+mainloop-notify.c:(.text+0x332): undefined reference to `io_set_close_on_destroy'
+mainloop-notify.c:(.text+0x342): undefined reference to `io_set_read_handler'
+mainloop-notify.o: In function `mainloop_run_with_signal':
+mainloop-notify.c:(.text+0x39c): undefined reference to `btd_malloc'
+mainloop-notify.c:(.text+0x3ec): undefined reference to `io_destroy'
+collect2: error: ld returned 1 exit status
+make: *** [server] Error 1

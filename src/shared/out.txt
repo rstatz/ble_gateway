@@ -1,0 +1,170 @@
+make: Warning: File 'btgatt-server.c' has modification time 1168 s in the future
+In file included from btgatt-server.c:52:0:
+src/shared/gatt-db.h:35:13: error: unknown type name 'bt_uuid_t'
+       const bt_uuid_t *uuid,
+             ^~~~~~~~~
+src/shared/gatt-db.h:48:14: error: unknown type name 'bt_uuid_t'
+        const bt_uuid_t *uuid,
+              ^~~~~~~~~
+src/shared/gatt-db.h:65:12: error: unknown type name 'bt_uuid_t'
+      const bt_uuid_t *uuid,
+            ^~~~~~~~~
+src/shared/gatt-db.h:74:12: error: unknown type name 'bt_uuid_t'
+      const bt_uuid_t *uuid,
+            ^~~~~~~~~
+src/shared/gatt-db.h:84:12: error: unknown type name 'bt_uuid_t'
+      const bt_uuid_t *uuid,
+            ^~~~~~~~~
+src/shared/gatt-db.h:94:12: error: unknown type name 'bt_uuid_t'
+      const bt_uuid_t *uuid,
+            ^~~~~~~~~
+src/shared/gatt-db.h:102:12: error: unknown type name 'bt_uuid_t'
+      const bt_uuid_t *uuid,
+            ^~~~~~~~~
+src/shared/gatt-db.h:110:12: error: unknown type name 'bt_uuid_t'
+      const bt_uuid_t *uuid,
+            ^~~~~~~~~
+src/shared/gatt-db.h:140:14: error: unknown type name 'bt_uuid_t'
+        const bt_uuid_t type,
+              ^~~~~~~~~
+src/shared/gatt-db.h:145:13: error: unknown type name 'bt_uuid_t'
+       const bt_uuid_t *type,
+             ^~~~~~~~~
+src/shared/gatt-db.h:152:13: error: unknown type name 'bt_uuid_t'
+       const bt_uuid_t *type,
+             ^~~~~~~~~
+src/shared/gatt-db.h:160:14: error: unknown type name 'bt_uuid_t'
+        const bt_uuid_t type,
+              ^~~~~~~~~
+src/shared/gatt-db.h:168:56: error: unknown type name 'bt_uuid_t'
+ void gatt_db_foreach_service(struct gatt_db *db, const bt_uuid_t *uuid,
+                                                        ^~~~~~~~~
+src/shared/gatt-db.h:171:57: error: unknown type name 'bt_uuid_t'
+ void gatt_db_foreach_in_range(struct gatt_db *db, const bt_uuid_t *uuid,
+                                                         ^~~~~~~~~
+src/shared/gatt-db.h:178:13: error: unknown type name 'bt_uuid_t'
+       const bt_uuid_t *uuid,
+             ^~~~~~~~~
+src/shared/gatt-db.h:185:13: error: unknown type name 'bt_uuid_t'
+       const bt_uuid_t *uuid,
+             ^~~~~~~~~
+src/shared/gatt-db.h:220:14: error: unknown type name 'bt_uuid_t'
+        const bt_uuid_t *uuid);
+              ^~~~~~~~~
+src/shared/gatt-db.h:222:7: error: unknown type name 'bt_uuid_t'
+ const bt_uuid_t *gatt_db_attribute_get_type(
+       ^~~~~~~~~
+src/shared/gatt-db.h:228:8: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
+        bt_uuid_t *uuid);
+        ^~~~~~~~~
+        __uid_t
+src/shared/gatt-db.h:239:8: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
+        bt_uuid_t *uuid);
+        ^~~~~~~~~
+        __uid_t
+src/shared/gatt-db.h:246:8: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
+        bt_uuid_t *uuid);
+        ^~~~~~~~~
+        __uid_t
+btgatt-server.c: In function 'populate_gap_service':
+btgatt-server.c:416:2: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
+  bt_uuid_t uuid;
+  ^~~~~~~~~
+  __uid_t
+btgatt-server.c:421:2: warning: implicit declaration of function 'bt_uuid16_create'; did you mean 'bt_uuid16_to_str'? [-Wimplicit-function-declaration]
+  bt_uuid16_create(&uuid, UUID_GAP);
+  ^~~~~~~~~~~~~~~~
+  bt_uuid16_to_str
+btgatt-server.c:428:26: error: 'GATT_CHARAC_DEVICE_NAME' undeclared (first use in this function)
+  bt_uuid16_create(&uuid, GATT_CHARAC_DEVICE_NAME);
+                          ^~~~~~~~~~~~~~~~~~~~~~~
+btgatt-server.c:428:26: note: each undeclared identifier is reported only once for each function it appears in
+btgatt-server.c:437:26: error: 'GATT_CHARAC_EXT_PROPER_UUID' undeclared (first use in this function); did you mean 'BT_GATT_CHRC_EXT_PROP_AUTH'?
+  bt_uuid16_create(&uuid, GATT_CHARAC_EXT_PROPER_UUID);
+                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+                          BT_GATT_CHRC_EXT_PROP_AUTH
+btgatt-server.c:446:26: error: 'GATT_CHARAC_APPEARANCE' undeclared (first use in this function); did you mean 'GATT_CHARAC_DEVICE_NAME'?
+  bt_uuid16_create(&uuid, GATT_CHARAC_APPEARANCE);
+                          ^~~~~~~~~~~~~~~~~~~~~~
+                          GATT_CHARAC_DEVICE_NAME
+btgatt-server.c: In function 'populate_gatt_service':
+btgatt-server.c:468:2: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
+  bt_uuid_t uuid;
+  ^~~~~~~~~
+  __uid_t
+btgatt-server.c:475:26: error: 'GATT_CHARAC_SERVICE_CHANGED' undeclared (first use in this function)
+  bt_uuid16_create(&uuid, GATT_CHARAC_SERVICE_CHANGED);
+                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+btgatt-server.c:483:26: error: 'GATT_CLIENT_CHARAC_CFG_UUID' undeclared (first use in this function)
+  bt_uuid16_create(&uuid, GATT_CLIENT_CHARAC_CFG_UUID);
+                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+btgatt-server.c: In function 'populate_hr_service':
+btgatt-server.c:494:2: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
+  bt_uuid_t uuid;
+  ^~~~~~~~~
+  __uid_t
+btgatt-server.c:511:26: error: 'GATT_CLIENT_CHARAC_CFG_UUID' undeclared (first use in this function)
+  bt_uuid16_create(&uuid, GATT_CLIENT_CHARAC_CFG_UUID);
+                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+btgatt-server.c: In function 'l2cap_le_att_listen_and_accept':
+btgatt-server.c:664:21: error: storage size of 'srcaddr' isn't known
+  struct sockaddr_l2 srcaddr, addr;
+                     ^~~~~~~
+btgatt-server.c:664:30: error: storage size of 'addr' isn't known
+  struct sockaddr_l2 srcaddr, addr;
+                              ^~~~
+btgatt-server.c:664:30: warning: unused variable 'addr' [-Wunused-variable]
+btgatt-server.c:664:21: warning: unused variable 'srcaddr' [-Wunused-variable]
+  struct sockaddr_l2 srcaddr, addr;
+                     ^~~~~~~
+btgatt-server.c: At top level:
+btgatt-server.c:900:30: error: unknown type name 'bt_uuid_t'
+ static void print_uuid(const bt_uuid_t *uuid)
+                              ^~~~~~~~~
+btgatt-server.c: In function 'print_uuid':
+btgatt-server.c:902:16: error: 'MAX_LEN_UUID_STR' undeclared (first use in this function)
+  char uuid_str[MAX_LEN_UUID_STR];
+                ^~~~~~~~~~~~~~~~
+btgatt-server.c:903:2: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
+  bt_uuid_t uuid128;
+  ^~~~~~~~~
+  __uid_t
+btgatt-server.c:905:2: warning: implicit declaration of function 'bt_uuid_to_uuid128'; did you mean 'bt_uuidstr_to_str'? [-Wimplicit-function-declaration]
+  bt_uuid_to_uuid128(uuid, &uuid128);
+  ^~~~~~~~~~~~~~~~~~
+  bt_uuidstr_to_str
+btgatt-server.c:906:2: warning: implicit declaration of function 'bt_uuid_to_string'; did you mean 'bt_uuid32_to_str'? [-Wimplicit-function-declaration]
+  bt_uuid_to_string(&uuid128, uuid_str, sizeof(uuid_str));
+  ^~~~~~~~~~~~~~~~~
+  bt_uuid32_to_str
+btgatt-server.c:902:7: warning: unused variable 'uuid_str' [-Wunused-variable]
+  char uuid_str[MAX_LEN_UUID_STR];
+       ^~~~~~~~
+btgatt-server.c: In function 'print_incl':
+btgatt-server.c:916:2: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
+  bt_uuid_t uuid;
+  ^~~~~~~~~
+  __uid_t
+btgatt-server.c:925:2: warning: implicit declaration of function 'gatt_db_attribute_get_service_uuid'; did you mean 'gatt_db_attribute_get_service_handles'? [-Wimplicit-function-declaration]
+  gatt_db_attribute_get_service_uuid(service, &uuid);
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  gatt_db_attribute_get_service_handles
+btgatt-server.c: In function 'print_chrc':
+btgatt-server.c:946:2: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
+  bt_uuid_t uuid;
+  ^~~~~~~~~
+  __uid_t
+btgatt-server.c:948:7: warning: implicit declaration of function 'gatt_db_attribute_get_char_data'; did you mean 'gatt_db_attribute_get_user_data'? [-Wimplicit-function-declaration]
+  if (!gatt_db_attribute_get_char_data(attr, &handle,
+       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       gatt_db_attribute_get_user_data
+btgatt-server.c: In function 'print_service':
+btgatt-server.c:969:2: error: unknown type name 'bt_uuid_t'; did you mean '__uid_t'?
+  bt_uuid_t uuid;
+  ^~~~~~~~~
+  __uid_t
+btgatt-server.c:971:7: warning: implicit declaration of function 'gatt_db_attribute_get_service_data'; did you mean 'gatt_db_attribute_get_user_data'? [-Wimplicit-function-declaration]
+  if (!gatt_db_attribute_get_service_data(attr, &start, &end, &primary,
+       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       gatt_db_attribute_get_user_data
+make: *** [btgatt-server.o] Error 1
