@@ -38,7 +38,7 @@
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
 #include <bluetooth/l2cap.h>
-#include "lib/uuid.h"
+#include "uuid.h"
 
 #include "src/shared/mainloop.h"
 #include "src/shared/util.h"

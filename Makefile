@@ -7,7 +7,7 @@ LDLIBS = `pkg-config --libs glib-2.0`
 SRCDIR=./src
 LIBDIR=./lib
 
-INCLUDES= -I $(LIBDIR)
+INCLUDES= -I $(LIBDIR) -I .
 
 SERVERDIR=$(SRCDIR)/leserver
 CLIENTDIR=$(SRCDIR)/leclient
