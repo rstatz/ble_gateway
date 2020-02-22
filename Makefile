@@ -1,7 +1,7 @@
 CC=gcc
 
 CFLAGS=  -lbluetooth 
-#CFLAGS= `pkg-config --cflags glib-2.0` -lbluetooth 
+CFLAGS_GLIB= `pkg-config --cflags glib-2.0` 
 LDLIBS = `pkg-config --libs glib-2.0`
 #-lbluetooth -lglib-2.0 -Wall 
 #-I/usr/include/glib-2.0/ 
@@ -23,7 +23,7 @@ LDFLAGS =   -lpng -lz -lm
 #-lGL -lglut -lpng -lz -lm
 
 server : $(obj)
-	$(CC) $(LDLIBS) -o $@ $^ $(CFLAGS) 
+	$(CC) $(LDLIBS) $(CFLAG_GLIB) -o $@ $^ $(CFLAGS) 
 	#$(CC) $(CFLAGS) $(LDLIBS) -o $@ $^ $(LDFLAGS)
 
 client : $(obj_client)
