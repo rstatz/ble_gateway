@@ -1,16 +1,16 @@
 CC=gcc
-CFLAGS=-lbluetooth -Wall
+CFLAGS= `pkg-config --cflags glib-2.0` -lbluetooth 
+LDLIBS = `pkg-config --libs glib-2.0`
+#-lbluetooth -lglib-2.0 -Wall 
+#-I/usr/include/glib-2.0/ 
 SRCDIR=.
 
-server : $(SRCDIR)/btgatt-server.o
-	$(CC) -o server $(SRCDIR)/btgatt-server.o $(CFLAGS)
+csrc = $(wildcard src/shared/*.c)\
+       $(wildcard *.c)
 
-mainloop.o : mainloop.c mainloop.h mainloop-notify.h mainloop-notify.c
-    $(CC) $(CFLAGS) -c -o $@ $<
+obj := $(csrc:.c=.o)
 
-mainloop-notify.o : mainloop-notify.c mainloop.h
-    $(CC) $(CFLAGS) -c -o $@ $<
+LDFLAGS = -lGL -lglut -lpng -lz -lm
 
-clean:
-	rm $(SRCDIR)/*.o
-	rm lescan
+server : $(obj)
+	$(CC) $(CFLAGS) $(LDLIBS) -o $@ $^ $(LDFLAGS)

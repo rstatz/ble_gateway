@@ -1,0 +1,14 @@
+CC=gcc
+CFLAGS=-lbluetooth -Wall
+SRCDIR=.
+
+objects := $(patsubst %.c,%.o,$(wildcard *.c))
+
+server : $(objects)
+	$(CC) $(CFLAGS) -o server $(objects)
+
+mainloop.o : mainloop.c mainloop.h mainloop-notify.h mainloop-notify.c
+	 $(CC) $(CFLAGS) -c -o $@ $<
+clean:
+	rm $(SRCDIR)/*.o
+	rm lescan

@@ -24,8 +24,8 @@
 #include <inttypes.h>
 #include <stdbool.h>
 
-#include "lib/bluetooth.h"
-#include "lib/uuid.h"
+#include "bluetooth/bluetooth.h"
+#include "uuid.h"
 
 #define BT_AD_FLAGS			0x01
 #define BT_AD_UUID16_SOME		0x02

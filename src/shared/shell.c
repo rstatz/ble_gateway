@@ -41,13 +41,13 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-#include "src/shared/mainloop.h"
-#include "src/shared/timeout.h"
-#include "src/shared/io.h"
-#include "src/shared/util.h"
-#include "src/shared/queue.h"
-#include "src/shared/shell.h"
-#include "src/shared/log.h"
+#include "mainloop.h"
+#include "timeout.h"
+#include "io.h"
+#include "util.h"
+#include "queue.h"
+#include "shell.h"
+#include "log.h"
 
 #define CMD_LENGTH	48
 #define print_text(color, fmt, args...) \

@@ -30,8 +30,8 @@
 #include <string.h>
 #include <sys/socket.h>
 
-#include "src/shared/util.h"
-#include "src/shared/crypto.h"
+#include "util.h"
+#include "crypto.h"
 
 #ifndef HAVE_LINUX_IF_ALG_H
 #ifndef HAVE_LINUX_TYPES_H

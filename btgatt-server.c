@@ -45,15 +45,15 @@
 //#include "lib/hci_lib.h"
 //#include "lib/l2cap.h"
 
-#include "uuid.h"
+#include "src/shared/uuid.h"
 
-#include "mainloop.h"
-#include "util.h"
-#include "att.h"
-#include "queue.h"
-#include "timeout.h"
-#include "gatt-db.h"
-#include "gatt-server.h"
+#include "src/shared/mainloop.h"
+#include "src/shared/util.h"
+#include "src/shared/att.h"
+#include "src/shared/queue.h"
+#include "src/shared/timeout.h"
+#include "src/shared/gatt-db.h"
+#include "src/shared/gatt-server.h"
 
 #define UUID_GAP			0x1800
 #define UUID_GATT			0x1801

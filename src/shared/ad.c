@@ -27,11 +27,11 @@
 
 #define _GNU_SOURCE
 
-#include "src/shared/ad.h"
+#include "ad.h"
 
-#include "src/eir.h"
-#include "src/shared/queue.h"
-#include "src/shared/util.h"
+#include "eir.h"
+#include "queue.h"
+#include "util.h"
 
 #define MAX_ADV_DATA_LEN 31
 

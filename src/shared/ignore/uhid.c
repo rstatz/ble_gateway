@@ -32,10 +32,10 @@
 #include <errno.h>
 #include <fcntl.h>
 
-#include "src/shared/io.h"
-#include "src/shared/util.h"
-#include "src/shared/queue.h"
-#include "src/shared/uhid.h"
+#include "io.h"
+#include "util.h"
+#include "queue.h"
+#include "uhid.h"
 
 #define UHID_DEVICE_FILE "/dev/uhid"
 

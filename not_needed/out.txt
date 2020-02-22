@@ -1,5 +1,3 @@
-btgatt-server.o: In function `att_disconnect_cb':
-btgatt-server.c:(.text+0x8a): undefined reference to `mainloop_quit'
 btgatt-server.o: In function `gap_device_name_read_cb':
 btgatt-server.c:(.text+0x164): undefined reference to `gatt_db_attribute_read_result'
 btgatt-server.o: In function `gap_device_name_write_cb':
@@ -73,8 +71,6 @@ btgatt-server.o: In function `server_destroy':
 btgatt-server.c:(.text+0xd1e): undefined reference to `timeout_remove'
 btgatt-server.c:(.text+0xd28): undefined reference to `bt_gatt_server_unref'
 btgatt-server.c:(.text+0xd32): undefined reference to `gatt_db_unref'
-btgatt-server.o: In function `l2cap_le_att_listen_and_accept':
-btgatt-server.c:(.text+0xeb0): undefined reference to `ba2str'
 btgatt-server.o: In function `cmd_notify':
 btgatt-server.c:(.text+0x12aa): undefined reference to `bt_gatt_server_send_indication'
 btgatt-server.c:(.text+0x12e2): undefined reference to `bt_gatt_server_send_notification'
@@ -103,15 +99,18 @@ btgatt-server.o: In function `cmd_services':
 btgatt-server.c:(.text+0x1772): undefined reference to `gatt_db_foreach_service'
 btgatt-server.o: In function `cmd_set_sign_key':
 btgatt-server.c:(.text+0x18e8): undefined reference to `bt_att_set_remote_key'
-btgatt-server.o: In function `prompt_read_cb':
-btgatt-server.c:(.text+0x19d4): undefined reference to `mainloop_quit'
-btgatt-server.o: In function `signal_cb':
-btgatt-server.c:(.text+0x1b3a): undefined reference to `mainloop_quit'
-btgatt-server.o: In function `main':
-btgatt-server.c:(.text+0x1cf8): undefined reference to `hci_devid'
-btgatt-server.c:(.text+0x1da8): undefined reference to `hci_devba'
-btgatt-server.c:(.text+0x1dec): undefined reference to `mainloop_init'
-btgatt-server.c:(.text+0x1e28): undefined reference to `mainloop_add_fd'
-btgatt-server.c:(.text+0x1e64): undefined reference to `mainloop_run_with_signal'
+mainloop-notify.o: In function `mainloop_notify_init':
+mainloop-notify.c:(.text+0x11a): undefined reference to `timeout_add'
+mainloop-notify.o: In function `mainloop_notify_exit':
+mainloop-notify.c:(.text+0x1aa): undefined reference to `timeout_remove'
+mainloop-notify.o: In function `signal_read':
+mainloop-notify.c:(.text+0x23a): undefined reference to `io_get_fd'
+mainloop-notify.o: In function `setup_signalfd':
+mainloop-notify.c:(.text+0x328): undefined reference to `io_new'
+mainloop-notify.c:(.text+0x332): undefined reference to `io_set_close_on_destroy'
+mainloop-notify.c:(.text+0x342): undefined reference to `io_set_read_handler'
+mainloop-notify.o: In function `mainloop_run_with_signal':
+mainloop-notify.c:(.text+0x39c): undefined reference to `btd_malloc'
+mainloop-notify.c:(.text+0x3ec): undefined reference to `io_destroy'
 collect2: error: ld returned 1 exit status
 make: *** [server] Error 1

@@ -37,7 +37,7 @@
 #include <limits.h>
 #include <string.h>
 
-#include "src/shared/util.h"
+#include "util.h"
 
 void *btd_malloc(size_t size)
 {

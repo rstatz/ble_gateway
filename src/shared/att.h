@@ -24,7 +24,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "src/shared/att-types.h"
+#include "att-types.h"
 
 struct bt_att;
 
