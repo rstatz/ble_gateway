@@ -8,9 +8,16 @@ LDLIBS = `pkg-config --libs glib-2.0`
 SRCDIR=.
 
 csrc = $(wildcard src/shared/*.c)\
-       $(wildcard *.c)
+       btgatt-server.c\
+       uuid.c
+
+csrc_client = $(wildcard src/shared/*.c)\
+	      btgatt-client.c\
+	      uuid.c
+
 
 obj := $(csrc:.c=.o)
+obj_client := $(csrc_client:.c=.o)
 
 LDFLAGS =   -lpng -lz -lm
 #-lGL -lglut -lpng -lz -lm
@@ -18,3 +25,9 @@ LDFLAGS =   -lpng -lz -lm
 server : $(obj)
 	$(CC) $(LDLIBS) -o $@ $^ $(CFLAGS) 
 	#$(CC) $(CFLAGS) $(LDLIBS) -o $@ $^ $(LDFLAGS)
+
+client : $(obj_client)
+	$(CC) $(LDLIBS) -o $@ $^ $(CFLAGS)
+
+clean : 
+	rm *.o
