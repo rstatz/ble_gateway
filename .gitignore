@@ -1,2 +1,4 @@
-lescan
+server
+client
+scan
 *.o

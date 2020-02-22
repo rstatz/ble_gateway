@@ -45,7 +45,7 @@
 //#include "lib/hci_lib.h"
 //#include "lib/l2cap.h"
 
-#include "src/shared/uuid.h"
+#include "lib/uuid.h"
 
 #include "src/shared/mainloop.h"
 #include "src/shared/util.h"
