@@ -32,11 +32,11 @@
 #include <stdarg.h>
 #include <ctype.h>
 
-#include "src/shared/util.h"
-#include "src/shared/ringbuf.h"
-#include "src/shared/queue.h"
-#include "src/shared/io.h"
-#include "src/shared/hfp.h"
+#include "util.h"
+#include "ringbuf.h"
+#include "queue.h"
+#include "io.h"
+#include "hfp.h"
 
 struct hfp_gw {
 	int ref_count;

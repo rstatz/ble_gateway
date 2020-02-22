@@ -31,7 +31,7 @@
 
 #include <ell/ell.h>
 
-#include "src/shared/io.h"
+#include "io.h"
 
 struct io {
 	struct l_io *l_io;

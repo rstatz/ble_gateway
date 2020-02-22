@@ -29,15 +29,15 @@
 #include <unistd.h>
 #include <errno.h>
 
-#include "src/shared/io.h"
-#include "src/shared/queue.h"
-#include "src/shared/util.h"
-#include "src/shared/timeout.h"
+#include "io.h"
+#include "queue.h"
+#include "util.h"
+#include "timeout.h"
 #include "lib/bluetooth.h"
 #include "lib/l2cap.h"
 #include "lib/uuid.h"
-#include "src/shared/att.h"
-#include "src/shared/crypto.h"
+#include "att.h"
+#include "crypto.h"
 
 #define ATT_MIN_PDU_LEN			1  /* At least 1 byte for the opcode. */
 #define ATT_OP_CMD_MASK			0x40

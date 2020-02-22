@@ -25,14 +25,14 @@
 #include <config.h>
 #endif
 
-#include "src/shared/att.h"
-#include "lib/bluetooth.h"
-#include "lib/uuid.h"
-#include "src/shared/gatt-helpers.h"
-#include "src/shared/util.h"
-#include "src/shared/queue.h"
-#include "src/shared/gatt-db.h"
-#include "src/shared/gatt-client.h"
+#include "att.h"
+#include "bluetooth/bluetooth.h"
+#include "bluetooth/uuid.h"
+#include "gatt-helpers.h"
+#include "util.h"
+#include "queue.h"
+#include "gatt-db.h"
+#include "gatt-client.h"
 
 #include <assert.h>
 #include <limits.h>

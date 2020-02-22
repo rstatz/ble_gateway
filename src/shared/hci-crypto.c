@@ -28,9 +28,9 @@
 #include <string.h>
 
 #include "monitor/bt.h"
-#include "src/shared/util.h"
-#include "src/shared/hci.h"
-#include "src/shared/hci-crypto.h"
+#include "util.h"
+#include "hci.h"
+#include "hci-crypto.h"
 
 struct crypto_data {
 	uint8_t size;

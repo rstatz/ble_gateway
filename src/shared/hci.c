@@ -32,11 +32,11 @@
 #include <sys/uio.h>
 
 #include "monitor/bt.h"
-#include "src/shared/mainloop.h"
-#include "src/shared/io.h"
-#include "src/shared/util.h"
-#include "src/shared/queue.h"
-#include "src/shared/hci.h"
+#include "mainloop.h"
+#include "io.h"
+#include "util.h"
+#include "queue.h"
+#include "hci.h"
 
 #define BTPROTO_HCI	1
 struct sockaddr_hci {

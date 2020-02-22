@@ -31,10 +31,10 @@
 #include "lib/bluetooth.h"
 #include "lib/mgmt.h"
 
-#include "src/shared/util.h"
-#include "src/shared/queue.h"
-#include "src/shared/mgmt.h"
-#include "src/shared/gap.h"
+#include "util.h"
+#include "queue.h"
+#include "mgmt.h"
+#include "gap.h"
 
 #define FLAG_MGMT_CONN_CONTROL	(0 << 1)
 

@@ -28,8 +28,8 @@
 
 #include <ell/ell.h>
 
-#include "lib/bluetooth.h"
-#include "src/shared/btp.h"
+#include "bluetooth/bluetooth.h"
+#include "btp.h"
 
 #define BTP_MTU 512
 
