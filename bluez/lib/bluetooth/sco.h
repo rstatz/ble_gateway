@@ -1,0 +1,1 @@
+/root/packages/bluez/lib/sco.h
