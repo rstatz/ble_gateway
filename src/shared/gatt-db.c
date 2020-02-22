@@ -29,7 +29,7 @@
 #include <errno.h>
 
 #include "bluetooth/bluetooth.h"
-#include "bluetooth/uuid.h"
+#include "uuid.h"
 #include "util.h"
 #include "queue.h"
 #include "timeout.h"

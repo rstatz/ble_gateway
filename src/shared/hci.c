@@ -31,7 +31,7 @@
 #include <sys/socket.h>
 #include <sys/uio.h>
 
-#include "monitor/bt.h"
+#include "bt.h"
 #include "mainloop.h"
 #include "io.h"
 #include "util.h"

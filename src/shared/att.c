@@ -33,9 +33,9 @@
 #include "queue.h"
 #include "util.h"
 #include "timeout.h"
-#include "lib/bluetooth.h"
-#include "lib/l2cap.h"
-#include "lib/uuid.h"
+#include "bluetooth/bluetooth.h"
+#include "bluetooth/l2cap.h"
+#include "uuid.h"
 #include "att.h"
 #include "crypto.h"
 

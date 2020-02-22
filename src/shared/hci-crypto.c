@@ -27,7 +27,7 @@
 
 #include <string.h>
 
-#include "monitor/bt.h"
+#include "bt.h"
 #include "util.h"
 #include "hci.h"
 #include "hci-crypto.h"

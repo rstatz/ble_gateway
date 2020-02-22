@@ -36,11 +36,11 @@
 #include <signal.h>
 #include <sys/socket.h>
 
-#include "lib/bluetooth.h"
-#include "lib/hci.h"
+#include "bluetooth/bluetooth.h"
+#include "bluetooth/hci.h"
 
-#include "src/shared/util.h"
-#include "src/shared/log.h"
+#include "util.h"
+#include "log.h"
 
 struct log_hdr {
 	uint16_t opcode;

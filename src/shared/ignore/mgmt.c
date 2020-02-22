@@ -31,8 +31,8 @@
 #include <errno.h>
 
 #include "bluetooth/bluetooth.h"
-#include "bluetooth/mgmt.h"
 #include "bluetooth/hci.h"
+#include "bluetooth/mgmt.h"
 
 #include "io.h"
 #include "queue.h"

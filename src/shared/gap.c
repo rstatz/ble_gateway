@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "lib/bluetooth.h"
+#include "bluetooth/bluetooth.h"
 #include "lib/mgmt.h"
 
 #include "util.h"

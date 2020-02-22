@@ -10,7 +10,8 @@ csrc = $(wildcard src/shared/*.c)\
 
 obj := $(csrc:.c=.o)
 
-LDFLAGS = -lGL -lglut -lpng -lz -lm
+LDFLAGS =   -lpng -lz -lm
+#-lGL -lglut -lpng -lz -lm
 
 server : $(obj)
 	$(CC) $(CFLAGS) $(LDLIBS) -o $@ $^ $(LDFLAGS)

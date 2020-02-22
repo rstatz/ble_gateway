@@ -30,7 +30,7 @@
 
 #include "att.h"
 #include "bluetooth/bluetooth.h"
-#include "bluetooth/uuid.h"
+#include "uuid.h"
 #include "queue.h"
 #include "gatt-db.h"
 #include "gatt-server.h"

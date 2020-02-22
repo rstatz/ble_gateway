@@ -27,7 +27,7 @@
 
 #include "att.h"
 #include "bluetooth/bluetooth.h"
-#include "bluetooth/uuid.h"
+#include "uuid.h"
 #include "gatt-helpers.h"
 #include "util.h"
 #include "queue.h"
