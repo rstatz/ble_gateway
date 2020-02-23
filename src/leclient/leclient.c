@@ -52,6 +52,9 @@
 #define PRLOG(...) \
 	printf(__VA_ARGS__); print_prompt();
 
+#define MAX_TEXT_LENGTH 140
+#define UUID_MESSAGE_TEXT   0x2a37
+
 #define COLOR_OFF	"\x1B[0m"
 #define COLOR_RED	"\x1B[0;91m"
 #define COLOR_GREEN	"\x1B[0;92m"
@@ -657,6 +660,109 @@ static void write_cb(bool success, uint8_t att_ecode, void *user_data)
 		PRLOG("\nWrite failed: %s (0x%02x)\n",
 				ecode_to_string(att_ecode), att_ecode);
 	}
+}
+
+static struct option message_options[] = {
+	{ "without-response",	0, 0, 'w' },
+    { "signed-write",	0, 0, 's' },
+    { }
+};
+
+static void message_usage(void)
+{
+	printf("Usage: msg [options] <text>\n"
+		"Options:\n"
+		"\t-w, --without-response\tWrite without response\n"
+		"e.g.:\n"
+		"\tmsg howdy y'all\n");
+}
+
+static void cmd_message(struct client *cli, char* cmd_str) {
+    int opt, i;
+	char *argvbuf[516];
+	char **argv = argvbuf;
+	int argc = 1;
+
+    char msg[MAX_TEXT_LENGTH + 1];
+    char* ptr = msg;
+    int msg_length = 0;
+
+    bool without_response = false;
+    bool signed_write = false;
+
+    // error handling
+    if (!bt_gatt_client_is_ready(cli->gatt)) {
+		printf("GATT client not initialized\n");
+		return;
+	}
+
+	if (!parse_args(cmd_str, 514, argv + 1, &argc)) {
+		printf("Too many arguments\n");
+		message_usage();
+		return;
+	}
+
+    // parse command line
+    optind = 0;
+	argv[0] = "write-value";
+	while ((opt = getopt_long(argc, argv, "+ws", message_options,
+								NULL)) != -1) {
+		switch (opt) {
+		case 'w':
+			without_response = true;
+			break;
+        case 's' :
+            signed_write = true;
+            break;
+		default:
+			write_value_usage();
+			return;
+		}
+	}
+
+    argc -= optind;
+	argv += optind;
+
+	if (argc < 1) {
+		write_value_usage();
+		return;
+	}
+
+    // construct message
+    for (i = 0; i < argc; i++) {
+        msg_length += strlen(argv[i]);
+
+        if (msg_length > MAX_TEXT_LENGTH) {
+            printf("Message longer than %d characters\n", MAX_TEXT_LENGTH);
+            return;
+        }
+
+        strcpy(ptr, argv[i]);
+
+        msg[msg_length] = ' ';
+        msg_length++;
+
+        ptr = msg + msg_length;
+    }
+
+    msg[msg_length] = '\0';
+
+    // send packet 
+	if (without_response) {
+		if (!bt_gatt_client_write_without_response(cli->gatt, UUID_MESSAGE_TEXT,
+						signed_write, (uint8_t*)msg, msg_length + 1)) {
+			printf("Failed to initiate write without response "
+								"procedure\n");
+			return;
+		}
+
+		printf("Write command sent\n");
+		return;
+	}
+
+	if (!bt_gatt_client_write_value(cli->gatt, UUID_MESSAGE_TEXT, (uint8_t*)msg, 
+                msg_length + 1,	write_cb, NULL, NULL))
+		printf("Failed to initiate write procedure\n");
 }
 
 static void cmd_write_value(struct client *cli, char *cmd_str)
@@ -1318,6 +1424,7 @@ static struct {
 } command[] = {
 	{ "help", cmd_help, "\tDisplay help message" },
 	{ "services", cmd_services, "\tShow discovered services" },
+    { "msg", cmd_message, "\t Send a message to the server" },
 	{ "read-value", cmd_read_value,
 				"\tRead a characteristic or descriptor value" },
 	{ "read-long-value", cmd_read_long_value,

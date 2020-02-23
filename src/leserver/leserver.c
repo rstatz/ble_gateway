@@ -327,8 +327,7 @@ static void msg_text_write(struct gatt_db_attribute *attrib,
 					uint8_t opcode, struct bt_att *att,
 					void *user_data)
 {
-	struct server *server = user_data;
-	uint8_t ecode = 0;
+    uint8_t ecode = 0;
 
 	if (!value || len > MAX_MSG_LENGTH ) {
 		ecode = BT_ATT_ERROR_INVALID_ATTRIBUTE_VALUE_LEN;
