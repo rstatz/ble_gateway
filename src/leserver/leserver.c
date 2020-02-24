@@ -96,6 +96,8 @@ struct server {
 	bool svc_chngd_enabled;
 
 	uint16_t msg_handle;
+    uint16_t msg_txt_char_handle;
+    uint16_t msg_txt_handle;
     
 	bool msg_visible;
 	bool msg_enabled;
@@ -446,33 +448,38 @@ static void populate_gatt_service(struct server *server)
 static void populate_msg_service(struct server *server)
 {
 	bt_uuid_t uuid;
-	struct gatt_db_attribute *service, *msg_txt;
+	struct gatt_db_attribute *service, *msg_txt_char, *msg_txt;
 
 	/* Add Message Service */
 	bt_uuid16_create(&uuid, UUID_MESSAGE);
 	service = gatt_db_add_service(server->db, &uuid, true, 8);
 	server->msg_handle = gatt_db_attribute_get_handle(service);
 
-	/* Message Text Characteristic */
+    /* Message Text Characteristic */
 	bt_uuid16_create(&uuid, UUID_MESSAGE_TEXT);
-	msg_txt = gatt_db_service_add_characteristic(service, &uuid,
+	msg_txt_char = gatt_db_service_add_characteristic(service, &uuid,
 						BT_ATT_PERM_NONE,
 						BT_GATT_CHRC_PROP_NOTIFY,
 						NULL, NULL, NULL);
-	server->msg_handle = gatt_db_attribute_get_handle(msg_txt);
+	server->msg_txt_char_handle = gatt_db_attribute_get_handle(msg_txt_char);
 
 	bt_uuid16_create(&uuid, GATT_CLIENT_CHARAC_CFG_UUID);
-	gatt_db_service_add_descriptor(service, &uuid,
+	msg_txt = gatt_db_service_add_descriptor(service, &uuid,
 					/*BT_ATT_PERM_READ | */BT_ATT_PERM_WRITE,
 					NULL,
 					msg_text_write, server);
 
-	if (server->msg_visible)
-		gatt_db_service_set_active(service, true);
+    server->msg_txt_handle = gatt_db_attribute_get_handle(msg_txt);
+    printf("server msg text handle = %x\n", server->msg_txt_handle);
+
+	//if (server->msg_visible)
+    gatt_db_service_set_active(service, true);
 }
 
 static void populate_db(struct server *server)
 {
+    printf("Populating DB...\n");
+
 	populate_gap_service(server);
 	populate_gatt_service(server);
 	populate_msg_service(server);
@@ -482,6 +489,8 @@ static struct server *server_create(int fd, uint16_t mtu, bool msg_visible)
 {
 	struct server *server;
 	size_t name_len = strlen(test_device_name);
+
+    printf("Creating Server...\n");
 
 	server = new0(struct server, 1);
 	if (!server) {
@@ -629,7 +638,7 @@ static int l2cap_le_att_listen_and_accept(bdaddr_t *src, int sec,
 		goto fail;
 	}
 
-	printf("Started listening on ATT channel. Waiting for connections\n");
+	printf("Started listening on ATT. Waiting for connections\n");
 
 	memset(&addr, 0, sizeof(addr));
 	optlen = sizeof(addr);
@@ -1080,7 +1089,7 @@ int main(int argc, char *argv[])
 	bool msg_visible = false;
 	struct server *server;
 
-	while ((opt = getopt_long(argc, argv, "+hvrs:t:m:i:",
+    while ((opt = getopt_long(argc, argv, "+hvrs:t:m:i:",
 						main_options, NULL)) != -1) {
 		switch (opt) {
 		case 'h':

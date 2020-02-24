@@ -52,7 +52,10 @@ scan: $(OBJ_SCAN)
 clean:
 	rm $(OBJ_CLIENT_ONLY) \
 		$(OBJ_SERVER_ONLY) \
-		$(OBJ_SCAN)
+		$(OBJ_SCAN) \
+		server \
+		client \
+		scan
 
 deepclean:
 	rm $(OBJ_SHARED) \
