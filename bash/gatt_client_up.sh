@@ -11,4 +11,4 @@ BLUEZ_PATH=
 #btmgmt -i $INTERFACE advertising on
 #btmgmt -i $INTERFACE power on
 
-$BLUEZ_PATH/tools/btgatt-client -i $INTERFACE -t random -s low -v -d $1
+./client -i $INTERFACE -t random -s low -v -d $1
