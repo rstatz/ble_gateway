@@ -115,7 +115,9 @@ typedef struct message_buffer_s {
 	char buf[MAX_MSG_LOG][MAX_MSG_LENGTH];
 } message_buffer;
 
+//globals
 message_buffer buffer;
+MYSQL *conn;
 
 void flush_messages() {
 	for (int i = 0; i < buffer.size; i++) {
@@ -1080,8 +1082,6 @@ void timer_handler(int sig, siginfo_t *si, void *uc) {
 		printf("post data\n");
 		flush_messages();
 }
-
-MYSQL *conn;
 
 int db_setup() {
 	MYSQL_RES *res;
