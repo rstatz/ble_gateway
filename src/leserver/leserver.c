@@ -123,7 +123,7 @@ void post_message(char * msg) { // todo prints msg
 	char sql_buf[MAX_MSG_LENGTH + 50];
 	sprintf(sql_buf, POST_MSG, msg);
 	printf(sql_buf);
-	fflush();
+	//fflush();
 	if (mysql_query(conn, sql_buf)) {
 		fprintf(stderr, "mysql: %s\n", mysql_error(conn));
 		exit(1);
