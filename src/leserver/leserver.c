@@ -62,7 +62,7 @@
 #define MAX_MSG_LENGTH 140
 #define MAX_MSG_LOG 300 // todo dynamic?
 
-#define POST_MSG    "INSERT INTO noods (`message`) VALUES (%s)" // todo will need to do some string mod with text
+#define POST_MSG    "INSERT INTO noods (`message`) VALUES (\"%s\")" // todo will need to do some string mod with text
 #define ATT_CID 4
 
 #define PRLOG(...) \
@@ -122,6 +122,7 @@ MYSQL *conn;
 void post_message(char * msg) { // todo prints msg
 	char sql_buf[MAX_MSG_LENGTH + 50];
 	sprintf(sql_buf, POST_MSG, msg);
+	printf(sql_buf);
 	if (mysql_query(conn, sql_buf)) {
 		fprintf(stderr, "mysql: %s\n", mysql_error(conn));
 		exit(1);
