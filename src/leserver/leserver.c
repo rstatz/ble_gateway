@@ -62,7 +62,7 @@
 #define MAX_MSG_LENGTH 140
 #define MAX_MSG_LOG 300 // todo dynamic?
 
-#define POST_MSG    "INSERT INTO messages (text) VALUES "// todo will need to do some string mod with text
+#define POST_MSG    "INSERT INTO noods (`message`) VALUES (\"tester message todo\")" // todo will need to do some string mod with text
 #define ATT_CID 4
 
 #define PRLOG(...) \
@@ -112,14 +112,14 @@ struct server {
 
 typedef struct message_buffer_s {
 	uint32_t size;
-	char [MAX_MSG_LOG][MAX_MSG_LENGTH] buf;
-} message_buffer;
+	char buf[MAX_MSG_LOG][MAX_MSG_LENGTH];
+}; message_buffer
 
 message_buffer buffer;
 
 void flush_messages() {
-	for (int i = 0; i < buffer.size) {
-		// todo send to heaven
+	for (int i = 0; i < buffer.size; i++) {
+		// todo send to heaven (prints)
 		if (mysql_query(conn, POST_MSG)) {
 			fprintf(stderr, "mysql: %s\n", mysql_error(conn));
 			exit(1);
