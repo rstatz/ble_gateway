@@ -128,7 +128,7 @@ void post_message(char * msg) { // todo prints msg
 
 void flush_messages() {
 	for (int i = 0; i < buffer.size; i++) {
-		post_message(buffer[i]);
+		post_message(buffer.buf[i]);
 	}
 }
 
