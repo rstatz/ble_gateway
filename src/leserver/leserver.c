@@ -113,7 +113,7 @@ struct server {
 typedef struct message_buffer_s {
 	uint32_t size;
 	char buf[MAX_MSG_LOG][MAX_MSG_LENGTH];
-}; message_buffer
+} message_buffer;
 
 message_buffer buffer;
 
