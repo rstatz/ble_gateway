@@ -62,6 +62,7 @@
 #define MAX_MSG_LENGTH 140
 #define MAX_MSG_LOG 300 // todo dynamic?
 
+#define POST_MSG    "INSERT INTO messages (text) VALUES "// todo will need to do some string mod with text
 #define ATT_CID 4
 
 #define PRLOG(...) \
@@ -119,6 +120,11 @@ message_buffer buffer;
 void flush_messages() {
 	for (int i = 0; i < buffer.size) {
 		// todo send to heaven
+		if (mysql_query(conn, POST_MSG)) {
+			fprintf(stderr, "mysql: %s\n", mysql_error(conn));
+			exit(1);
+		}
+
 	}
 }
 
@@ -1075,8 +1081,9 @@ void timer_handler(int sig, siginfo_t *si, void *uc) {
 		flush_messages();
 }
 
+MYSQL *conn;
+
 int db_setup() {
-	MYSQL *conn;
 	MYSQL_RES *res;
 	MYSQL_ROW row;
 	int poll_rate = 200;
@@ -1155,7 +1162,7 @@ int db_setup() {
 
 	/* close connection */
 	mysql_free_result(res);
-	mysql_close(conn);
+	mysql_close(conn); // todo why close?
 //
 //	while(1)
 //		pause();
