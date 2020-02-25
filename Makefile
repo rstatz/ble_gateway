@@ -1,6 +1,6 @@
 CC=gcc
 
-CFLAGS=  -lbluetooth -Wall 
+CFLAGS= -lmysqlclient -lpthread -lz -lm -lrt -lbluetooth -Wall -I/usr/include/mysql -I.  
 CFLAGS_GLIB= `pkg-config --cflags glib-2.0` 
 LDLIBS = `pkg-config --libs glib-2.0`
 
