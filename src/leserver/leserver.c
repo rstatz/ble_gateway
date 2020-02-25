@@ -128,7 +128,7 @@ void post_message(char * msg) { // todo prints msg
 
 void flush_messages() {
 	for (int i = 0; i < buffer.size; i++) {
-		post_message(message_buffer[i]);
+		post_message(buffer[i]);
 	}
 }
 
@@ -1066,7 +1066,6 @@ static void signal_cb(int signum, void *user_data)
 	case SIGINT:
 	case SIGTERM:
 		/* close connection */
-		mysql_free_result(res);
 		mysql_close(conn);
 		mainloop_quit();
 		break;
@@ -1096,7 +1095,7 @@ int db_setup() {
 	int post_rate = 300;
 	char realtime = 'F';
 
-	printf("DATABASE SETUP TIME\n")
+	printf("DATABASE SETUP TIME\n");
 
 	/* Connect to database */
 	if ((conn = connect_db()) == NULL) //global
@@ -1166,6 +1165,7 @@ int db_setup() {
 		}
 		make_timer(&post_timer, post_rate, timer_handler);
 	}
+	mysql_free_result(res);
 }
 
 int main(int argc, char *argv[])
