@@ -1153,7 +1153,7 @@ int db_setup() {
 	/* TBD get realtime from res */
 	while((row = mysql_fetch_row(res)) != NULL) {
 		realtime = atoi(row[0]);
-		printf("realtime: %c\n", realtime);
+		printf("realtime: %d\n", realtime);
 	}
 
 	/* create post timer */
