@@ -1262,13 +1262,13 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
+	db_setup();
 	fd = l2cap_le_att_listen_and_accept(&src_addr, sec, src_type);
 	if (fd < 0) {
 		fprintf(stderr, "Failed to accept L2CAP ATT connection\n");
 		return EXIT_FAILURE;
 	}
 
-	db_setup();
 	mainloop_init();
 
 	server = server_create(fd, mtu, msg_visible);
