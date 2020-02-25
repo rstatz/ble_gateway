@@ -118,6 +118,7 @@ typedef struct message_buffer_s {
 //globals
 message_buffer buffer;
 MYSQL *conn;
+uint8_t realtime = 0;
 
 void post_message(char * msg) { // todo prints msg
 	char sql_buf[MAX_MSG_LENGTH + 50];
@@ -134,6 +135,7 @@ void flush_messages() {
 	for (int i = 0; i < buffer.size; i++) {
 		post_message(buffer.buf[i]);
 	}
+	buffer.size = 0;
 }
 
 void add_msg(char * msg)
@@ -346,7 +348,11 @@ static void msg_text_write(struct gatt_db_attribute *attrib,
 
     printf("MSG RCVD: %s\n", msg);
 
-    post_message(msg);
+    if (realtime) {
+		post_message(msg);
+	} else {
+    	add_msg(msg);
+    }
     // TODO options:
     // 1)add to data structure that acts as a big buffer that updates to Azure
     // at regular intervals
@@ -1089,7 +1095,7 @@ void timer_handler(int sig, siginfo_t *si, void *uc) {
 		printf("poll tags\n");
 	else if(*tidp == post_timer)
 		printf("post data\n");
-		//flush_messages();
+		flush_messages();
 }
 
 int db_setup() {
@@ -1097,7 +1103,6 @@ int db_setup() {
 	MYSQL_ROW row;
 	int poll_rate = 200;
 	int post_rate = 300;
-	char realtime = 'F';
 
 	printf("DATABASE SETUP TIME\n");
 
@@ -1147,7 +1152,7 @@ int db_setup() {
 
 	/* TBD get realtime from res */
 	while((row = mysql_fetch_row(res)) != NULL) {
-		realtime = *row[0];
+		realtime = atoi(*row[0]);
 		printf("realtime: %c\n", realtime);
 	}
 
