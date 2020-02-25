@@ -1085,7 +1085,7 @@ void timer_handler(int sig, siginfo_t *si, void *uc) {
 		printf("poll tags\n");
 	else if(*tidp == post_timer)
 		printf("post data\n");
-		flush_messages();
+		//flush_messages();
 }
 
 int db_setup() {
