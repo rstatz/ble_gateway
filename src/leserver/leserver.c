@@ -1268,6 +1268,7 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
+	db_setup();
 	mainloop_init();
 
 	server = server_create(fd, mtu, msg_visible);
@@ -1284,7 +1285,7 @@ int main(int argc, char *argv[])
 
 		return EXIT_FAILURE;
 	}
-	db_setup();
+
 	printf("Running GATT server\n");
 
 	print_prompt();
