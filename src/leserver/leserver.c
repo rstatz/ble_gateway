@@ -119,14 +119,16 @@ typedef struct message_buffer_s {
 message_buffer buffer;
 MYSQL *conn;
 
+void post_message(char * msg) { // todo prints msg
+	if (mysql_query(conn, POST_MSG)) {
+		fprintf(stderr, "mysql: %s\n", mysql_error(conn));
+		exit(1);
+	}
+}
+
 void flush_messages() {
 	for (int i = 0; i < buffer.size; i++) {
-		// todo send to heaven (prints)
-		if (mysql_query(conn, POST_MSG)) {
-			fprintf(stderr, "mysql: %s\n", mysql_error(conn));
-			exit(1);
-		}
-
+		post_message(message_buffer[i]);
 	}
 }
 
@@ -340,6 +342,7 @@ static void msg_text_write(struct gatt_db_attribute *attrib,
 
     printf("MSG RCVD: %s\n", msg);
 
+    post_message(msg);
     // TODO options:
     // 1)add to data structure that acts as a big buffer that updates to Azure
     // at regular intervals
@@ -1062,6 +1065,9 @@ static void signal_cb(int signum, void *user_data)
 	switch (signum) {
 	case SIGINT:
 	case SIGTERM:
+		/* close connection */
+		mysql_free_result(res);
+		mysql_close(conn);
 		mainloop_quit();
 		break;
 	default:
@@ -1090,22 +1096,23 @@ int db_setup() {
 	int post_rate = 300;
 	char realtime = 'F';
 
+	printf("DATABASE SETUP TIME\n")
+
 	/* Connect to database */
-	if ((conn = connect_db()) == NULL)
+	if ((conn = connect_db()) == NULL) //global
 		exit(1);
 
 	printf("Connected to DB!\n");
 
 	/* pull tag list from azure */
-	if (mysql_query(conn, "SHOW TABLES;")) {
-		fprintf(stderr, "mysql: %s\n", mysql_error(conn));
-		exit(1);
-	}
-
-	res = mysql_use_result(conn);
-	/* TBD format tags for use */
-	while ((row = mysql_fetch_row(res)) != NULL)
-		printf("%s \n", row[0]);
+//	if (mysql_query(conn, "SHOW TABLES;")) { TODO maybe
+//		fprintf(stderr, "mysql: %s\n", mysql_error(conn));
+//		exit(1);
+//	}
+//	res = mysql_use_result(conn);
+//	/* TBD format tags for use */
+//	while ((row = mysql_fetch_row(res)) != NULL)
+//		printf("%s \n", row[0]);
 
 	/* pull refresh rate from azure */
 	if (mysql_query(conn, "SELECT pollrate FROM config;")) {
@@ -1116,7 +1123,7 @@ int db_setup() {
 	res = mysql_use_result(conn);
 	/* create poll timer */
 
-	/* TBD how is res stored *
+	/* todo how is res stored *
 	 * hours, mins, seconds ??
 	 */
 
@@ -1159,13 +1166,6 @@ int db_setup() {
 		}
 		make_timer(&post_timer, post_rate, timer_handler);
 	}
-
-	/* close connection */
-	mysql_free_result(res);
-	mysql_close(conn); // todo why close?
-//
-//	while(1)
-//		pause();
 }
 
 int main(int argc, char *argv[])
@@ -1284,7 +1284,7 @@ int main(int argc, char *argv[])
 
 		return EXIT_FAILURE;
 	}
-
+	db_setup();
 	printf("Running GATT server\n");
 
 	print_prompt();
