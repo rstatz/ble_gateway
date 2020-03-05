@@ -123,7 +123,6 @@ uint8_t realtime = 0;
 void post_message(char * msg) { // todo prints msg
 	char sql_buf[MAX_MSG_LENGTH + 50];
 	sprintf(sql_buf, POST_MSG, msg);
-	printf(sql_buf);
 	//fflush();
 	if (mysql_query(conn, sql_buf)) {
 		fprintf(stderr, "mysql: %s\n", mysql_error(conn));
@@ -349,8 +348,8 @@ static void msg_text_write(struct gatt_db_attribute *attrib,
     printf("MSG RCVD: %s\n", msg);
 
     if (realtime) {
-		post_message(msg);
-	} else {
+	post_message(msg);
+    } else {
     	add_msg(msg);
     }
     // TODO options:
@@ -1086,22 +1085,21 @@ static void signal_cb(int signum, void *user_data)
 
 /* TODO might need globals for data buffer and bluetooth tag list */
 timer_t post_timer;
-timer_t poll_timer;
 
 void timer_handler(int sig, siginfo_t *si, void *uc) {
 	timer_t *tidp;
 	tidp = si->si_value.sival_ptr;
-	if(*tidp == poll_timer)
-		printf("poll tags\n");
-	else if(*tidp == post_timer)
-		printf("post data\n");
+	//if(*tidp == poll_timer)
+	//	printf("poll tags\n");
+	//else 
+	if(*tidp == post_timer)
 		flush_messages();
 }
 
 int db_setup() {
 	MYSQL_RES *res;
 	MYSQL_ROW row;
-	int poll_rate = 200;
+	//int poll_rate = 200;
 	int post_rate = 300;
 
 	printf("DATABASE SETUP TIME\n");
@@ -1123,24 +1121,25 @@ int db_setup() {
 //		printf("%s \n", row[0]);
 
 	/* pull refresh rate from azure */
+	/*
 	if (mysql_query(conn, "SELECT pollrate FROM config;")) {
 		fprintf(stderr, "mysql: %s\n", mysql_error(conn));
 		exit(1);
 	}
-
 	res = mysql_use_result(conn);
+	*/
 	/* create poll timer */
 
 	/* todo how is res stored *
 	 * hours, mins, seconds ??
 	 */
-
+	/*
 	while((row = mysql_fetch_row(res)) != NULL) {
 		poll_rate = atoi(row[0]); //refresh every 5 mins
 		printf("poll rate: %d \n", poll_rate);
-	}
+	}*/
 
-	make_timer(&poll_timer, poll_rate, timer_handler);
+	//make_timer(&poll_timer, poll_rate, timer_handler);
 
 	/* check if realtime configured */
 	if (mysql_query(conn, "SELECT realtime FROM config;")) {
@@ -1157,8 +1156,9 @@ int db_setup() {
 	}
 
 	/* create post timer */
-	if(realtime == '0') {
+	if(realtime == 0) {
 		/*TODO get post rate */
+		printf("make post timer\n");
 		/* pull refresh rate from azure */
 		if (mysql_query(conn, "SELECT postrate FROM config;")) {
 			fprintf(stderr, "mysql: %s\n", mysql_error(conn));
@@ -1175,6 +1175,7 @@ int db_setup() {
 		make_timer(&post_timer, post_rate, timer_handler);
 	}
 	mysql_free_result(res);
+	return  0;
 }
 
 int main(int argc, char *argv[])
