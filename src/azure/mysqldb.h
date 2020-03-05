@@ -1,8 +1,8 @@
 #ifndef MYSQLDB_H
 #define MYSQLDB_H
 #include <mysql.h>
-#define SERVER "reach-db.mysql.database.azure.com"
-#define USER "myadmin@reach-db"
+#define SERVER "reachdb.mysql.database.azure.com"
+#define USER "myadmin@reachdb"
 #define PASSWORD "Reach123"
 #define DATABASE "reachdb"
 
