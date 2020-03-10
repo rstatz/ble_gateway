@@ -5,9 +5,9 @@ CFLAGS_GLIB= `pkg-config --cflags glib-2.0`
 LDLIBS = `pkg-config --libs glib-2.0`
 
 SRCDIR=./src
-LIBDIR=./lib #todo remove
+# LIBDIR=./lib #todo remove
 
-INCLUDES= -I $(LIBDIR) -I .
+# INCLUDES= -I $(LIBDIR) -I .
 
 SERVERDIR=$(SRCDIR)/leserver
 CLIENTDIR=$(SRCDIR)/leclient
@@ -39,16 +39,16 @@ LDFLAGS =   -lpng -lz -lm
 all: server client scan
 
 server : $(OBJ_SERVER)
-	$(CC) $(LDLIBS) $(CFLAGS_GLIB) -o $@ $^ $(CFLAGS) $(INCLUDES)
+	$(CC) $(LDLIBS) $(CFLAGS_GLIB) -o $@ $^ $(CFLAGS) #$(INCLUDES)
 
 client : $(OBJ_CLIENT)
-	$(CC) $(LDLIBS) $(CFLAGS_GLIB) -o $@ $^ $(CFLAGS) $(INCLUDES)
+	$(CC) $(LDLIBS) $(CFLAGS_GLIB) -o $@ $^ $(CFLAGS) #$(INCLUDES)
 
 scan: $(OBJ_SCAN)
 	$(CC) -o $@ $^ $(CFLAGS)
 
 %.o:%.c
-	$(CC) -c -o $@ $^ $(LDLIBS) $(CFLAGS) $(CFLAGS_GLIB) $(INCLUDES)
+	$(CC) -c -o $@ $^ $(LDLIBS) $(CFLAGS) $(CFLAGS_GLIB) #$(INCLUDES)
 
 clean:
 	rm $(OBJ_CLIENT_ONLY) \
