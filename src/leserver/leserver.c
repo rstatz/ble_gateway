@@ -360,83 +360,83 @@ static void confirm_write(struct gatt_db_attribute *attr, int err,
 	exit(1);
 }
 
-//static void populate_gap_service(struct server *server)
-//{
-//	bt_uuid_t uuid;
-//	struct gatt_db_attribute *service, *tmp;
-//	uint16_t appearance;
-//
-//	/* Add the GAP service */
-//	bt_uuid16_create(&uuid, UUID_GAP);
-//	service = gatt_db_add_service(server->db, &uuid, true, 6);
-//
-//	/*
-//	 * Device Name characteristic. Make the value dynamically read and
-//	 * written via callbacks.
-//	 */
-//	bt_uuid16_create(&uuid, GATT_CHARAC_DEVICE_NAME);
-//	gatt_db_service_add_characteristic(service, &uuid,
-//					BT_ATT_PERM_READ | BT_ATT_PERM_WRITE,
-//					BT_GATT_CHRC_PROP_READ |
-//					BT_GATT_CHRC_PROP_EXT_PROP,
-//					gap_device_name_read_cb,
-//					gap_device_name_write_cb,
-//					server);
-//
-//	bt_uuid16_create(&uuid, GATT_CHARAC_EXT_PROPER_UUID);
-//	gatt_db_service_add_descriptor(service, &uuid, BT_ATT_PERM_READ,
-//					gap_device_name_ext_prop_read_cb,
-//					NULL, server);
-//
-//	/*
-//	 * Appearance characteristic. Reads and writes should obtain the value
-//	 * from the database.
-//	 */
-//	bt_uuid16_create(&uuid, GATT_CHARAC_APPEARANCE);
-//	tmp = gatt_db_service_add_characteristic(service, &uuid,
-//							BT_ATT_PERM_READ,
-//							BT_GATT_CHRC_PROP_READ,
-//							NULL, NULL, server);
-//
-//	/*
-//	 * Write the appearance value to the database, since we're not using a
-//	 * callback.
-//	 */
-//	put_le16(128, &appearance);
-//	gatt_db_attribute_write(tmp, 0, (void *) &appearance,
-//							sizeof(appearance),
-//							BT_ATT_OP_WRITE_REQ,
-//							NULL, confirm_write,
-//							NULL);
-//
-//	gatt_db_service_set_active(service, true);
-//}
-//
-//static void populate_gatt_service(struct server *server)
-//{
-//	bt_uuid_t uuid;
-//	struct gatt_db_attribute *service, *svc_chngd;
-//
-//	/* Add the GATT service */
-//	bt_uuid16_create(&uuid, UUID_GATT);
-//	service = gatt_db_add_service(server->db, &uuid, true, 4);
-//
-//	bt_uuid16_create(&uuid, GATT_CHARAC_SERVICE_CHANGED);
-//	svc_chngd = gatt_db_service_add_characteristic(service, &uuid,
-//			BT_ATT_PERM_READ,
-//			BT_GATT_CHRC_PROP_READ | BT_GATT_CHRC_PROP_INDICATE,
-//			gatt_service_changed_cb,
-//			NULL, server);
-//	server->gatt_svc_chngd_handle = gatt_db_attribute_get_handle(svc_chngd);
-//
-//	bt_uuid16_create(&uuid, GATT_CLIENT_CHARAC_CFG_UUID);
-//	gatt_db_service_add_descriptor(service, &uuid,
-//				BT_ATT_PERM_READ | BT_ATT_PERM_WRITE,
-//				gatt_svc_chngd_ccc_read_cb,
-//				gatt_svc_chngd_ccc_write_cb, server);
-//
-//	gatt_db_service_set_active(service, true);
-//}
+static void populate_gap_service(struct server *server)
+{
+	bt_uuid_t uuid;
+	struct gatt_db_attribute *service, *tmp;
+	uint16_t appearance;
+
+	/* Add the GAP service */
+	bt_uuid16_create(&uuid, UUID_GAP);
+	service = gatt_db_add_service(server->db, &uuid, true, 6);
+
+	/*
+	 * Device Name characteristic. Make the value dynamically read and
+	 * written via callbacks.
+	 */
+	bt_uuid16_create(&uuid, GATT_CHARAC_DEVICE_NAME);
+	gatt_db_service_add_characteristic(service, &uuid,
+					BT_ATT_PERM_READ | BT_ATT_PERM_WRITE,
+					BT_GATT_CHRC_PROP_READ |
+					BT_GATT_CHRC_PROP_EXT_PROP,
+					gap_device_name_read_cb,
+					gap_device_name_write_cb,
+					server);
+
+	bt_uuid16_create(&uuid, GATT_CHARAC_EXT_PROPER_UUID);
+	gatt_db_service_add_descriptor(service, &uuid, BT_ATT_PERM_READ,
+					gap_device_name_ext_prop_read_cb,
+					NULL, server);
+
+	/*
+	 * Appearance characteristic. Reads and writes should obtain the value
+	 * from the database.
+	 */
+	bt_uuid16_create(&uuid, GATT_CHARAC_APPEARANCE);
+	tmp = gatt_db_service_add_characteristic(service, &uuid,
+							BT_ATT_PERM_READ,
+							BT_GATT_CHRC_PROP_READ,
+							NULL, NULL, server);
+
+	/*
+	 * Write the appearance value to the database, since we're not using a
+	 * callback.
+	 */
+	put_le16(128, &appearance);
+	gatt_db_attribute_write(tmp, 0, (void *) &appearance,
+							sizeof(appearance),
+							BT_ATT_OP_WRITE_REQ,
+							NULL, confirm_write,
+							NULL);
+
+	gatt_db_service_set_active(service, true);
+}
+
+static void populate_gatt_service(struct server *server)
+{
+	bt_uuid_t uuid;
+	struct gatt_db_attribute *service, *svc_chngd;
+
+	/* Add the GATT service */
+	bt_uuid16_create(&uuid, UUID_GATT);
+	service = gatt_db_add_service(server->db, &uuid, true, 4);
+
+	bt_uuid16_create(&uuid, GATT_CHARAC_SERVICE_CHANGED);
+	svc_chngd = gatt_db_service_add_characteristic(service, &uuid,
+			BT_ATT_PERM_READ,
+			BT_GATT_CHRC_PROP_READ | BT_GATT_CHRC_PROP_INDICATE,
+			gatt_service_changed_cb,
+			NULL, server);
+	server->gatt_svc_chngd_handle = gatt_db_attribute_get_handle(svc_chngd);
+
+	bt_uuid16_create(&uuid, GATT_CLIENT_CHARAC_CFG_UUID);
+	gatt_db_service_add_descriptor(service, &uuid,
+				BT_ATT_PERM_READ | BT_ATT_PERM_WRITE,
+				gatt_svc_chngd_ccc_read_cb,
+				gatt_svc_chngd_ccc_write_cb, server);
+
+	gatt_db_service_set_active(service, true);
+}
 
 static void populate_msg_service(struct server *server)
 {
