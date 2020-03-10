@@ -1,8 +1,6 @@
 #include "timer_setup.h"
 
 int make_timer(timer_t *timerid, int sec, void handler(int sig, siginfo_t *si, void *uc)) {
-    struct sigevent sev;
-    struct itimerspec its;
     struct sigaction sa;
     printf("Establishing handler for timer signal %d\n", SIG);
     sa.sa_flags = SA_SIGINFO;
