@@ -473,8 +473,8 @@ static void populate_db(struct server *server)
 {
     printf("Populating DB...\n");
 
-	// populate_gap_service(server);
-	// populate_gatt_service(server);
+	 populate_gap_service(server);
+	 populate_gatt_service(server);
 	populate_msg_service(server);
 }
 
