@@ -1,11 +1,11 @@
 CC=gcc
 
-CFLAGS=  -lbluetooth -Wall 
+CFLAGS= -lmysqlclient -lpthread -lz -lm -lrt -lbluetooth -Wall -I/usr/include/mysql -I.  
 CFLAGS_GLIB= `pkg-config --cflags glib-2.0` 
 LDLIBS = `pkg-config --libs glib-2.0`
 
 SRCDIR=./src
-LIBDIR=./lib
+LIBDIR=./lib #todo remove
 
 INCLUDES= -I $(LIBDIR) -I .
 
@@ -13,7 +13,8 @@ SERVERDIR=$(SRCDIR)/leserver
 CLIENTDIR=$(SRCDIR)/leclient
 SCANDIR=$(SRCDIR)/lescan
 
-CSRC_SHARED = $(wildcard $(SRCDIR)/shared/*.c)
+CSRC_SHARED = $(wildcard $(SRCDIR)/shared/*.c) \
+              $(wildcard $(SRCDIR)/azure/*.c)
 
 CSRC_SERVER = $(SERVERDIR)/leserver.c
 

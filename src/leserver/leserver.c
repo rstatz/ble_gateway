@@ -49,15 +49,20 @@
 #include "src/shared/gatt-db.h"
 #include "src/shared/gatt-server.h"
 
+#include "src/azure/timer_setup.h"
+#include "src/azure/mysqldb.h"
+
 #define UUID_GAP			0x1800
 #define UUID_GATT			0x1801
 #define UUID_MESSAGE			    0x180d
-#define UUID_MESSAGE_TEXT    		0x2a37
+#define UUID_MESSAGE_TEXT    		0x1133
 //#define UUID_HEART_RATE_BODY		0x2a38
 //#define UUID_HEART_RATE_CTRL		0x2a39
 
 #define MAX_MSG_LENGTH 140
+#define MAX_MSG_LOG 300 // todo dynamic?
 
+#define POST_MSG    "INSERT INTO messages (`msg`) VALUES (\"%s\")" // todo will need to do some string mod with text
 #define ATT_CID 4
 
 #define PRLOG(...) \
@@ -104,6 +109,43 @@ struct server {
 
 	unsigned int msg_timeout_id;
 };
+
+typedef struct message_buffer_s {
+	uint32_t size;
+	char buf[MAX_MSG_LOG][MAX_MSG_LENGTH];
+} message_buffer;
+
+//globals
+message_buffer buffer;
+MYSQL *conn;
+uint8_t realtime = 0;
+
+void post_message(char * msg) { // todo prints msg
+	char sql_buf[MAX_MSG_LENGTH + 50];
+	sprintf(sql_buf, POST_MSG, msg);
+	//fflush();
+	if (mysql_query(conn, sql_buf)) {
+		fprintf(stderr, "mysql: %s\n", mysql_error(conn));
+		exit(1);
+	}
+}
+
+void flush_messages() {
+	for (int i = 0; i < buffer.size; i++) {
+		post_message(buffer.buf[i]);
+	}
+	buffer.size = 0;
+}
+
+void add_msg(char * msg)
+{
+	if (buffer.size >= MAX_MSG_LOG) {
+		printf("MESSAGE OVERFLOW\n");
+		return;
+	}
+	strcpy(buffer.buf[buffer.size], msg);
+	buffer.size ++;
+}
 
 static void print_prompt(void)
 {
@@ -280,49 +322,6 @@ done:
 	gatt_db_attribute_write_result(attrib, id, ecode);
 }
 
-/*static void hr_msrmt_ccc_read_cb(struct gatt_db_attribute *attrib,
-					unsigned int id, uint16_t offset,
-					uint8_t opcode, struct bt_att *att,
-					void *user_data)
-{
-	struct server *server = user_data;
-	uint8_t value[2];
-
-	value[0] = server->hr_msrmt_enabled ? 0x01 : 0x00;
-	value[1] = 0x00;
-
-	gatt_db_attribute_read_result(attrib, id, 0, value, 2);
-}*/
-
-/*static bool hr_msrmt_cb(void *user_data)
-{
-	struct server *server = user_data;
-	bool expended_present = !(server->hr_ee_count % 10);
-	uint16_t len = 2;
-	uint8_t pdu[4];
-	uint32_t cur_ee;
-
-	pdu[0] = 0x06;
-	pdu[1] = 90 + (rand() % 40);
-
-	if (expended_present) {
-		pdu[0] |= 0x08;
-		put_le16(server->hr_energy_expended, pdu + 2);
-		len += 2;
-	}
-
-	bt_gatt_server_send_notification(server->gatt,
-						server->hr_msrmt_handle,
-						pdu, len);
-
-
-	cur_ee = server->hr_energy_expended;
-	server->hr_energy_expended = MIN(UINT16_MAX, cur_ee + 10);
-	server->hr_ee_count++;
-
-	return true;
-}*/
-
 static void msg_text_write(struct gatt_db_attribute *attrib,
 					unsigned int id, uint16_t offset,
 					const uint8_t *value, size_t len,
@@ -348,6 +347,11 @@ static void msg_text_write(struct gatt_db_attribute *attrib,
 
     printf("MSG RCVD: %s\n", msg);
 
+    if (realtime) {
+	post_message(msg);
+    } else {
+    	add_msg(msg);
+    }
     // TODO options:
     // 1)add to data structure that acts as a big buffer that updates to Azure
     // at regular intervals
@@ -1070,11 +1074,108 @@ static void signal_cb(int signum, void *user_data)
 	switch (signum) {
 	case SIGINT:
 	case SIGTERM:
+		/* close connection */
+		mysql_close(conn);
 		mainloop_quit();
 		break;
 	default:
 		break;
 	}
+}
+
+/* TODO might need globals for data buffer and bluetooth tag list */
+timer_t post_timer;
+
+void timer_handler(int sig, siginfo_t *si, void *uc) {
+	timer_t *tidp;
+	tidp = si->si_value.sival_ptr;
+	//if(*tidp == poll_timer)
+	//	printf("poll tags\n");
+	//else 
+	if(*tidp == post_timer)
+		flush_messages();
+}
+
+int db_setup() {
+	MYSQL_RES *res;
+	MYSQL_ROW row;
+	//int poll_rate = 200;
+	int post_rate = 300;
+
+	printf("DATABASE SETUP TIME\n");
+
+	/* Connect to database */
+	if ((conn = connect_db()) == NULL) //global
+		exit(1);
+
+	printf("Connected to DB!\n");
+
+	/* pull tag list from azure */
+//	if (mysql_query(conn, "SHOW TABLES;")) { TODO maybe
+//		fprintf(stderr, "mysql: %s\n", mysql_error(conn));
+//		exit(1);
+//	}
+//	res = mysql_use_result(conn);
+//	/* TBD format tags for use */
+//	while ((row = mysql_fetch_row(res)) != NULL)
+//		printf("%s \n", row[0]);
+
+	/* pull refresh rate from azure */
+	/*
+	if (mysql_query(conn, "SELECT pollrate FROM config;")) {
+		fprintf(stderr, "mysql: %s\n", mysql_error(conn));
+		exit(1);
+	}
+	res = mysql_use_result(conn);
+	*/
+	/* create poll timer */
+
+	/* todo how is res stored *
+	 * hours, mins, seconds ??
+	 */
+	/*
+	while((row = mysql_fetch_row(res)) != NULL) {
+		poll_rate = atoi(row[0]); //refresh every 5 mins
+		printf("poll rate: %d \n", poll_rate);
+	}*/
+
+	//make_timer(&poll_timer, poll_rate, timer_handler);
+
+	/* check if realtime configured */
+	if (mysql_query(conn, "SELECT realtime FROM config;")) {
+		fprintf(stderr, "mysql: %s\n", mysql_error(conn));
+		exit(1);
+	}
+
+	res = mysql_use_result(conn);
+
+	/* TBD get realtime from res */
+	while((row = mysql_fetch_row(res)) != NULL) {
+		realtime = atoi(row[0]);
+		printf("realtime: %d\n", realtime);
+	}
+
+	/* create post timer */
+	if(realtime == 0) {
+		/*TODO get post rate */
+		printf("make post timer\n");
+		/* pull refresh rate from azure */
+		if (mysql_query(conn, "SELECT postrate FROM config;")) {
+			fprintf(stderr, "mysql: %s\n", mysql_error(conn));
+			exit(1);
+		}
+
+		res = mysql_use_result(conn);
+		/* create poll timer */
+
+		if((row = mysql_fetch_row(res)) != NULL) {
+			post_rate = atoi(row[0]); //refresh every 5 mins
+			printf("post rate: %d \n", post_rate);
+		}
+		make_timer(&post_timer, post_rate, timer_handler);
+	}
+	mysql_free_result(res);
+	return  0;
 }
 
 int main(int argc, char *argv[])
@@ -1171,6 +1272,7 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
+	db_setup();
 	fd = l2cap_le_att_listen_and_accept(&src_addr, sec, src_type);
 	if (fd < 0) {
 		fprintf(stderr, "Failed to accept L2CAP ATT connection\n");
