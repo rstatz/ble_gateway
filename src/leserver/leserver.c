@@ -1090,7 +1090,7 @@ int db_setup() {
         make_timer(&post_timer, post_rate, timer_handler);
     }
     mysql_free_result(res);
-    fflush();
+    fflush(stdout);
     return 0;
 }
 
