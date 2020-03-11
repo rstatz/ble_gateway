@@ -748,8 +748,9 @@ static void message_usage(void) {
     printf("Usage: msg [options] <text>\n"
            "Options:\n"
            "\t-w, --without-response\tWrite without response\n"
+           "\t-s, --signed message\n"
            "e.g.:\n"
-           "\tmsg howdy y'all\n");
+           "\tmsg -w Hello World\n");
 }
 
 static void cmd_message(struct client *cli, char *cmd_str) {
@@ -789,7 +790,7 @@ static void cmd_message(struct client *cli, char *cmd_str) {
                 signed_write = true;
                 break;
             default:
-                write_value_usage();
+                message_usage();
                 return;
         }
     }
@@ -798,7 +799,7 @@ static void cmd_message(struct client *cli, char *cmd_str) {
     argv += optind;
 
     if (argc < 1) {
-        write_value_usage();
+        message_usage();
         return;
     }
 
@@ -809,6 +810,7 @@ static void cmd_message(struct client *cli, char *cmd_str) {
 
         if (msg_length > MAX_TEXT_LENGTH) {
             printf("Message longer than %d characters\n", MAX_TEXT_LENGTH);
+            message_usage();
             return;
         }
 

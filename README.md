@@ -11,3 +11,4 @@ to add:
 - options explination
     - security
     - address type
+    - how to run
