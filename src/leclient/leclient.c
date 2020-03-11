@@ -805,7 +805,8 @@ static void cmd_message(struct client *cli, char *cmd_str) {
 
     // construct message
     for (i = 0; i < argc; i++) {
-        if (strlen(arv[i]) + msg_length > ) {
+        if (strlen(argv[i]) + msg_length > MAX_TEXT_LENGTH) {
+            message_usage();
             return;
         }
         strcpy(msg + msg_length, argv[i]);
