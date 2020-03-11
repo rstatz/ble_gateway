@@ -53,7 +53,7 @@
 #define PRLOG(...) \
     printf(__VA_ARGS__); print_prompt();
 
-#define MAX_TEXT_LENGTH 140
+#define MAX_TEXT_LENGTH 19
 #define MESSAGE_TEXT_HANDLE   0x0e
 
 #define COLOR_OFF    "\x1B[0m"
@@ -805,6 +805,9 @@ static void cmd_message(struct client *cli, char *cmd_str) {
 
     // construct message
     for (i = 0; i < argc; i++) {
+        if (strlen(arv[i]) + msg_length > ) {
+            return;
+        }
         strcpy(msg + msg_length, argv[i]);
         msg_length += strlen(argv[i]);
 
