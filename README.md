@@ -64,7 +64,7 @@ To start the GATT client:
 ```./bash/gatt_client_up <server_MAC>```
 
 ## Notes
-The GATT server assumes it can connect to an Azure MySQL database (https://docs.microsoft.com/en-us/azure/mysql/quickstart-create-mysql-server-database-using-azure-portal). The database is assumed to have two tables, 'config' and 'messages'. 
+The GATT server assumes it can connect to an Azure MySQL database (https://docs.microsoft.com/en-us/azure/mysql/quickstart-create-mysql-server-database-using-azure-portal). The server, user, password, and database name can be updated in `src/azure/mysqldb.h`. If any changes are made, use `make clean` and `make` to update GATT server and client executables. The database is assumed to have two tables, 'config' and 'messages'. 
 
 The commands below can be used to create the necessary tables using the MySQL command prompt:
 
