@@ -20,8 +20,7 @@ After connecting to the database the server listens for a connection from the cl
 
 For the remainder of the server's life, the server listens for messages from the client and posts them the the database. 
     
-options
------------
+options:
 - i Specify adapter index, typically hci0 
 - m The ATT MTU to use
 - s security-level [low|medium|high]
@@ -31,14 +30,24 @@ options
 - h help
 
 ## Client 
-Before running the client you must run a scan for the server hci0 lescan | grep [SERVER NAME]. Assuming the server is running, the scan will show the server's MAC address. The client program takes the server's mac address and requests a connection to the server. 
+Before running the client you must run a scan for the server 'hcitool lescan | grep [SERVER NAME]'. Assuming the server is running, the scan will show the server's MAC address. The client program takes the server's mac address and requests a connection to the server. 
 After the client and server connect; the GATT and GAP service set up the communication protocol. From this point the user can send messages to the server using the 'msg' command. The msg will be sent to the msg handle on the server side. 
 
-## Azure 
+options: 
+- d remote address (MAC address of the server)
+- i Specify adapter index, typically hci0 
+- m The ATT MTU to use
+- s security-level [low|medium|high]
+- t The source address type [random|public]
+- v Enable extra logging
+- h help
+
 ## Getting Started 
-    
-to add:
-- options explination
-    - security
-    - address type
-    - how to run
+Install:
+
+First 'make' to compile all of the source code then you can run the scripts below.  
+
+We have three bash scripts in the bash folder to help you run the : 
+- ble_startup : this script attaches the bluetooth chip via hci_uart to the hci0 interface on the gateworks board. This script must be run before the client or server program. 
+- gatt_server_up : this script starts up the server. DEV_NAME allows you to name the server whatever you like. 
+- gatt_client_up : this script starts up the client to attach to the server. This script takes in a single argument of the MAC address of the server. 
