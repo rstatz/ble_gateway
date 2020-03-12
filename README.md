@@ -54,7 +54,7 @@ In the `bash/` folder, there are three scripts:
 - `gatt_server_up` : this script starts up the server. DEV_NAME allows you to name the server whatever you like. 
 - `gatt_client_up` : this script starts up the client to attach to the server. This script takes in a single argument of the MAC address of the server. 
 
-All of the above scipts must be run from the root directory of this project. For example, to start the Bluetooth service run:
+All of the above scripts must be run from the root directory of this project. For example, to start the Bluetooth service run:
 ```./bash/ble_startup```
 
 To start the GATT server:
