@@ -21,26 +21,26 @@ After connecting to the database the server listens for a connection from the cl
 For the remainder of the server's life, the server listens for messages from the client and posts them the the database. 
     
 options:
-- i Specify adapter index, typically hci0 
-- m The ATT MTU to use
-- s security-level [low|medium|high]
-- t The source address type [random|public]
-- v Enable extra logging
-- r Enable Messaging Service
-- h help
+- 'i' Specify adapter index, typically hci0 
+- 'm' The ATT MTU to use
+- 's' security-level [low|medium|high]
+- 't' The source address type [random|public]
+- 'v' Enable extra logging
+- 'r' Enable Messaging Service
+- 'h' help
 
 ## Client 
 Before running the client you must run a scan for the server 'hcitool lescan | grep [SERVER NAME]'. Assuming the server is running, the scan will show the server's MAC address. The client program takes the server's mac address and requests a connection to the server. 
 After the client and server connect; the GATT and GAP service set up the communication protocol. From this point the user can send messages to the server using the 'msg' command. The msg will be sent to the msg handle on the server side. 
 
 options: 
-- d remote address (MAC address of the server)
-- i Specify adapter index, typically hci0 
-- m The ATT MTU to use
-- s security-level [low|medium|high]
-- t The source address type [random|public]
-- v Enable extra logging
-- h help
+- 'd' remote address (MAC address of the server)
+- 'i' Specify adapter index, typically hci0 
+- 'm' The ATT MTU to use
+- 's' security-level [low|medium|high]
+- 't' The source address type [random|public]
+- 'v' Enable extra logging
+- 'h' help
 
 ## Getting Started 
 Install:
