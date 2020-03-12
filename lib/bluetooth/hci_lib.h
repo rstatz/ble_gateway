@@ -1,1 +1,0 @@
-/root/bluez/lib/hci_lib.h

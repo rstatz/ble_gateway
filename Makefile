@@ -1,13 +1,9 @@
 CC=gcc
-
 CFLAGS= -lmysqlclient -lpthread -lz -lm -lrt -lbluetooth -Wall -I/usr/include/mysql -I.  
 CFLAGS_GLIB= `pkg-config --cflags glib-2.0` 
 LDLIBS = `pkg-config --libs glib-2.0`
 
 SRCDIR=./src
-LIBDIR=./lib #todo remove
-
-INCLUDES= -I $(LIBDIR) -I .
 
 SERVERDIR=$(SRCDIR)/leserver
 CLIENTDIR=$(SRCDIR)/leclient
@@ -39,27 +35,22 @@ LDFLAGS =   -lpng -lz -lm
 all: server client scan
 
 server : $(OBJ_SERVER)
-	$(CC) $(LDLIBS) $(CFLAGS_GLIB) -o $@ $^ $(CFLAGS) $(INCLUDES)
+	$(CC) $(LDLIBS) $(CFLAGS_GLIB) -o $@ $^ $(CFLAGS)
 
 client : $(OBJ_CLIENT)
-	$(CC) $(LDLIBS) $(CFLAGS_GLIB) -o $@ $^ $(CFLAGS) $(INCLUDES)
+	$(CC) $(LDLIBS) $(CFLAGS_GLIB) -o $@ $^ $(CFLAGS)
 
 scan: $(OBJ_SCAN)
 	$(CC) -o $@ $^ $(CFLAGS)
 
 %.o:%.c
-	$(CC) -c -o $@ $^ $(LDLIBS) $(CFLAGS) $(CFLAGS_GLIB) $(INCLUDES)
+	$(CC) -c -o $@ $^ $(LDLIBS) $(CFLAGS) $(CFLAGS_GLIB)
 
 clean:
 	rm $(OBJ_CLIENT_ONLY) \
 		$(OBJ_SERVER_ONLY) \
 		$(OBJ_SCAN) \
+		$(OBJ_SHARED) \
 		server \
 		client \
 		scan
-
-deepclean:
-	rm $(OBJ_SHARED) \
-		$(OBJ_CLIENT_ONLY) \
-		$(OBJ_SERVER_ONLY) \
-		$(OBJ_SCAN)

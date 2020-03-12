@@ -1,1 +1,0 @@
-/root/bluez/lib/sdp_lib.h

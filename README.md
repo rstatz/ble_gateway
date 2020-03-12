@@ -6,3 +6,9 @@ This project is built off the btgatt server/client example provided in the bluez
 
 Project Dependencies:
 
+
+to add:
+- options explination
+    - security
+    - address type
+    - how to run
