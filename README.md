@@ -68,7 +68,8 @@ The GATT server assumes it can connect to an Azure MySQL database (https://docs.
 
 The commands below can be used to create the necessary tables using the MySQL command prompt:
 
-```CREATE TABLE config (postrate INT, realtime CHAR(1), ID INT, PRIMARY KEY (ID));
-CREATE TABLE messages (msg VARCHAR(140), created_at DATETIME DEFAULT CURRENT_TIMESTAMP);```
+```CREATE TABLE config (postrate INT, realtime CHAR(1), ID INT, PRIMARY KEY (ID));```
+
+```CREATE TABLE messages (msg VARCHAR(140), created_at DATETIME DEFAULT CURRENT_TIMESTAMP);```
 
 Values for postrate, realtime, and ID must be initialized before running the GATT server.
