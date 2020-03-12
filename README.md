@@ -11,7 +11,7 @@ There is a client program and a server program. The client program can send mess
 Once the server is running, the client can connect and setup communication. A Bluetooth handle is created for the message service on the server side and the client sends the message to this handle.
 
 ## Server 
-On boot, the server first connects to the azure database. After connecting the server queries for the 'realtime' boolean and 'postrate' values from the data base. Realtime tells if the server should post messages immediately upon receiving them or on a timer. If realtime is disabled the server will create a post timer, store any messages it has received in a buffer, and post the messages in the buffer when the timer expires. Postrate describes the time in seconds between posting events.
+On boot, the server first connects to the Azure database. After connecting the server queries for the 'realtime' boolean and 'postrate' values from the data base. Realtime tells if the server should post messages immediately upon receiving them or on a timer. If realtime is disabled the server will create a post timer, store any messages it has received in a buffer, and post the messages in the buffer when the timer expires. Postrate (post rate) describes the time in seconds between posting events.
 
 After connecting to the database the server listens for a connection from the client. After connecting, the server populates three handles:
 1. The GAP service: (Generic Access Protocol) Defines how bluetooth devices communicate
@@ -31,7 +31,7 @@ options:
 
 ## Client 
 Before running the client you must run a scan for the server 'hcitool -i <hciX> lescan | grep [SERVER NAME]'. Assuming the server is running, the scan will show the server's MAC address. The client program takes the server's MAC address and requests a connection to the server. 
-After the client and server connect; the GATT and GAP service set up the communication protocol. From this point the user can send messages to the server using the 'msg' command. The msg will be sent to the msg handle on the server side. 
+After the client and server connect; the GATT and GAP service set up the communication protocol. From this point the user can send messages to the server using the 'msg' command. The message will be sent to the msg handle on the server side. 
 
 options: 
 - 'd' remote address (MAC address of the server)
