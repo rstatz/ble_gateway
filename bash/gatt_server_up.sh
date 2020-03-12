@@ -1,7 +1,7 @@
 #!/bin/bash
 
 INTERFACE=hci0
-DEV_NAME="GW_LIZZIE"
+DEV_NAME="GW_SERVER"
 
 btmgmt -i $INTERFACE power off
 btmgmt -i $INTERFACE le on
